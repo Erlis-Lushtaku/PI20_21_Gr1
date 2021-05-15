@@ -1,0 +1,151 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
+*{
+  margin:0;
+  padding:0;
+  font-family:'Poppins', sans-serif;
+}
+
+body{
+margin:0;
+padding:0;
+display:flex;
+justify-content:center;
+align-items: center;
+min-height: 100vh;
+font-family:'Poppins', sans-serif;
+background: url(images/kosovo1.png);
+background-blend-mode: screen;
+    background-repeat: no-repeat;
+    background-size: 100%;
+
+}
+.conteiner{
+
+display:flex;
+justify-content: space-between;
+flex-wrap: wrap;
+margin-top:70px;
+}
+
+
+
+
+.conteiner .box{
+position:relative;
+width:400px;
+height:600px;
+padding:40px;
+background:white;
+box-shadow:0 20px 30px rgb(0,0,0,.1);
+border-radius:4px;
+margin:20px;
+box-sizing:border-box;
+overflow: hidden;
+text-align:center;
+transition: 1s;
+border-top:8px solid #818a91;
+border-bottom:8px solid #818a91 ;
+
+}
+.conteiner .box:hover{
+  transform: scale(1.1);
+    box-shadow: 2px 2px 2px #000;
+    z-index: 2;
+}
+.conteiner .box .icon{
+position: relative;
+width:100%;
+height:50px;
+color:black;
+background:black;
+align-items:center;
+margin:0 auto;
+border-radius:10%;
+font-weight:600;
+transition:1s;
+font-family: 'Poppins', sans-serif;
+
+}
+.container.icon img{
+width: 80px;
+height:80px;
+
+}
+.conteiner .box:nth-child(1) .icon{
+box-shadow: 0 0 0 0 #818a91;
+background:#818a91;
+}
+.conteiner .box:nth-child(1):hover .icon{
+box-shadow: 0 0 0 600px #818a91;
+color:#d88e2c;
+
+}
+
+.conteiner .box .content
+{
+position:relative;
+z-index:1;
+transition: 0.5s;
+color:black;
+font-size:20px;
+font-family: 'Poppins', sans-serif;
+font-weight: 600;
+margin-top:30px;
+font-size:23px;
+}
+.conteiner .box:hover .content
+{
+color:#d88e2c;
+}
+.conteiner .box .content p{
+margin-bottom:20px;
+padding: 0;
+
+}
+.conteiner .box .content a
+{
+display:inline-block;
+padding:10px 20px;
+background:#fff;
+border-radius:20px;
+text-decoration:none;
+color:rgb(19, 17, 17);
+font-weight:500;
+margin-top: 20px;
+box-shadow:0 5px 10px rgb(0,0,0,.3);
+
+
+}
+.conteiner .box .content a:hover{
+  box-shadow:0 5px 20px rgb(0,0,0,.9);
+  color:#000;
+}
+.container .box:before{
+content:'';
+width:50%;
+height:100%;
+position:absolute;
+top:0;
+left:0;
+background:rgb(255, 255, 255,.2)
+}
+.container .box .photo{
+box-shadow:0 2px 5px rgb(0,0,0,.2);
+width:80px;
+height:80px;
+background-image:url(loans.png);
+background:100% 100%;
+
+
+}
+.conteiner .box .photo
+{
+position:relative;
+z-index:1;
+transition: 0.5s;
+}
+.conteiner .box:hover .photo
+{
+color:#fff;
+}

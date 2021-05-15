@@ -1,0 +1,286 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600&display=swap');
+* {
+    margin:0;
+    font-family: "Poppins", sans-serif ;
+}
+:root {
+  --text: #333;
+  --text-inverse: #f4f4f4;
+  --background: transparent;
+  --spacing: 1em;
+}
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 6000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top:10px;
+    padding-bottom:10px;
+    padding-right:50px;
+    padding-left:50px;
+    transition: 250ms ease-in;
+    background: var(--background);
+    color: var(--text);
+  }
+.logo
+{
+    color: white;
+    z-index: 5000;
+    display: flex;
+    align-items: center;
+}
+.logo h4 {
+    margin:0;
+    padding: 0;
+    text-transform: uppercase;
+    margin-left: 10px;
+}
+
+h4 span {
+    display: inline-flex;
+    color:#333;
+    overflow: hidden;
+    font-size: 30px;
+}
+h4:hover span {
+    display: inline-flex;
+    color:#d88e2c;
+    background-color:#333;
+    transition-delay: 0.1s;
+    overflow: hidden;
+    z-index: 5000;
+    font-size: 20px;
+    transition-duration: 1s;
+}
+h4 span:nth-child(even){
+    overflow: hidden;
+    color:#fff;
+    border-bottom: 8px solid #d88e2c;
+    letter-spacing: -1em; /* qekjo i hek ato shkronjat mas B P A */
+}
+h4:hover span:nth-child(even){
+    
+    letter-spacing: 0;
+    background-color:  #333;
+}
+.nav-l {
+    list-style-type: none;
+    margin:0;
+    padding: 0;
+    display: flex;
+}
+.link{
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+    /* padding: calc(var(--spacing) / 2) var(--spacing); */
+    padding-right: 3em;
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+}
+.link:hover{
+    text-decoration: underline;
+    font-size: 15px;
+    font-weight: 600;
+}
+.link_button:hover{
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: normal;
+}
+.link:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: var(--spacing);
+    right: var(--spacing);
+    height: 2px;
+    -webkit-transform: scaleX(0);
+            transform: scaleX(0);
+    transition: transform 150ms ease-in-out, -webkit-transform 150ms ease-in-out;
+  }
+  .link_button {
+    border: 1.5px solid currentColor;
+    border-radius: 2em;
+    transition:250ms ease-in-out;
+    letter-spacing: 1px;
+    padding:10px 20px;
+  }
+  .link_button:hover {
+    background: rgba(245, 167, 103, 0.733);
+    color: var(--text-inverse);
+    border-color:rgba(245, 167, 103, 0.733);
+  }
+  .link_button::after {
+      display: none;
+  }
+  .nav-scrolled {
+    --text: #333;
+    --text-inverse: #f4f4f4;
+    --background: #f4f4f4;
+    box-shadow: 0 3px 20px rgba(0, 0, 0, 0.2);
+  }
+  /* Mobile Menu */
+.nav-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* works on X axis */
+    align-items: center; /* works on Y axis */
+}
+
+.tre{
+    order:1;
+}
+.nav-l-i.link_button{
+    order:2;
+}
+.nav-l-i{
+    width: 100%;
+    text-align: center;
+    order:2;
+    display: none; /* it hides until we click on it */
+}
+.nav-l-i.active{
+    display: block; /* in js we're add this active class dynimacily in all of our parts when we click the tre menu */
+}
+.tre{
+    cursor: pointer;
+}
+.tre3{
+    background: #999;
+    display: inline-block;
+    height: 2px;
+    position: relative;
+    width: 18px;
+}
+.tre3::before, .tre3::after {
+    background: #999;
+    content:""; /* sa her tpunon me before after e ki tnevojshme qet sen */
+    display: inline-block;
+    height: 2px;
+    position: absolute;
+    width: 18px;
+}
+.tre3::before{
+    top:5px;
+}
+.tre3::after{
+    top:-5px;
+}
+/* Tablet Menu */
+@media all and (min-width:468px){
+    .nav-bar{
+        justify-content: center;
+    }
+    .logo{
+        flex: 1; /* it allows it to grow or sth */
+    }
+    .nav-l-i.link{
+        width: auto;
+        order: 1;
+        display: block;
+    }
+    .tre{
+        order: 2;
+    }
+    .link_button a{
+        text-decoration: none;
+        padding: 7px 15px;
+        background: teal;
+        border: 1px solid #006d6d;
+        border-radius: 50em;
+    }
+    .link_button a:hover{
+        transition: all 0.25s;
+        background: #006d6d;
+        border-color:#005959;
+    } 
+} 
+/* Desktop Menu */
+@media all and (min-width:768px) {
+    .nav-l-i{
+        display: block;
+        width:auto;
+    }
+    .tre{
+        display: none;
+    }
+    .logo {
+        order:0;
+    }
+    .nav-l-i{
+        order:1;
+    }
+    .link_button{
+        order:2;
+    }
+    .nav-bar li{
+        padding: 15px 10px;
+    }
+    .nav-bar li.link_button{
+        padding-right:0;
+    }
+}
+
+/* scroll */
+.scrolling-active{
+    background-color: #fff;
+    box-shadow: 0 3px 1rem rgba(0,0,0,.1);
+}
+
+.scrolling-active .div1.m-nav{
+    height: 6.6rem;
+}
+
+.scrolling-active .link{
+    color: #333;
+}
+
+
+.dropdown {
+    margin-top:-2px;
+    overflow: hidden;
+  }
+  
+  .dropdown .dropbtn {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    margin: 0;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    font-size:15px;
+    background-color: #ffff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+  
+  .dropdown-content a:hover {
+    background-color:#d88e2c;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+ 
+  

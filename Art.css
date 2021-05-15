@@ -1,0 +1,193 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+  }
+  
+  main{
+    display:grid;
+    /* gjeresia */
+    grid-template-columns: 1fr 1fr 1fr;
+    /* gjatesia e rreshtave */
+    grid-template-rows: 600px 300px 400px 100px 500px 170px 500px;
+    /* rreshti i pare box 1 box 1 box 1 */
+   grid-template-areas:
+    "box1 box13 box13"
+    "box2 box2 box2"
+    "box3 box4 box4"
+    "box5 box5 box5"
+     ;  
+  }
+
+  .box1{
+    grid-area:box1;
+    background: lightgray;
+    text-transform: uppercase;
+    letter-spacing: .5em;
+}
+
+.box1 h1{
+    margin-top: 100px;
+    margin-left: 400px;
+    font-size: 32px;
+}
+
+.box1 pre{
+    margin-top: 10px;
+    margin-left: 250px;
+    font-size: 22px;
+}
+
+#valeza{
+    height: 250px;
+    width: 300px;
+    margin-left: 100px;
+    margin-top: 50px;
+}
+
+.box13{
+    grid-area: box13;
+    background:lightgray;
+}
+
+#foto1{
+    float: right;
+    margin-top: 120px;
+    margin-right: 250px;
+    filter: drop-shadow(0px 5px 3px black);
+    animation: drop 3s ease;
+    height: 400px;
+    width: 400px;
+    z-index:5;
+}
+
+@keyframes drop{
+    0%{
+        opacity: 0;
+        transform: translateY(-80px);
+    }
+    100%{
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+#foto2 {
+    margin-top: -450px;
+    margin-bottom: 300px;
+    margin-left: 100px;
+    height: 400px;
+    width: 600px;
+    z-index: 4;
+}
+
+  .box2{
+    grid-area:box2;
+    background: lightgray;
+    font-size: large;
+    color:black;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .rina{
+    padding: 40px;
+  }
+
+#unord{
+    list-style-type: square;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 150%;
+    color: rgb(228, 126, 53);
+  }
+
+  #first{
+    list-style-type: circle;
+    margin: 1em;
+    text-align: left;
+  }
+
+  .box3{
+    grid-area:box3;
+    background:lightgray;
+    
+  }
+
+  #valeza{
+      height: 300px;
+      width: 300px;
+      margin-right: 100px;
+      margin-top: -1px;
+      transition: transform .2s;
+  }
+
+  #valeza:hover {
+    transform: scale(1.1); 
+  }
+
+  .text{
+    border: 2px solid black;
+    width: 300px; 
+    text-align: center;
+    margin-left: 100px;
+  }
+
+
+  .box4{
+    grid-area:box4;
+    background:lightgray;
+  }
+  .riga1{
+    font-size: 200%;
+    color: black;
+    margin-right: 100px;
+    text-decoration: underline solid rgb(10, 0, 0);
+    text-align: center;
+  }
+
+  .riga2{
+    font-size: 150%;
+    color: black;
+    margin-top: 30px;
+    margin-right: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+
+  .box5{
+    grid-area:box5;
+    background: lightgray;
+  }
+
+.box5 svg{
+    margin-top: -200px;
+    width:100%;
+}
+
+  .box6{
+    grid-area:box6;
+    background:aliceblue;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #riga3{
+    margin: auto 0;
+    height: 300px;
+    width: 300px;
+    transition: transform .2s;
+}
+
+#riga3:hover {
+    transform: scale(1.1); 
+  }
+
+  .text2{
+    border: 2px solid black;
+    width: 300px; 
+    text-align: center;
+    margin-left: 90px;
+  }
+
+

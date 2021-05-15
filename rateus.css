@@ -1,0 +1,61 @@
+* {
+  font-family:'Poppins',sans-serif;
+  font-size:25px;
+}
+
+div.control {
+  position: absolute;
+  transform: translateX(-50%);
+  left: 50%;
+}
+
+#track, #stroke {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+label {
+  color:#F79B44;
+  font-size:30px;
+  font-weight: 600;
+}
+
+input {
+  text-align:center;
+  background-color: #fff;
+  color: #565656;
+  padding: 6px 10px 6px 20px;
+  width: 80px;
+  border: 1px solid #efefef;
+  border-radius: 3px;
+  box-shadow: inset 3px 3px 4px #efefef; 
+}
+
+/* Hide HTML5 Up and Down arrows. */
+input[type="number"]::-webkit-outer-spin-button, 
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+#score {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%);
+  font-size: 60px;
+  color: #F79B44;
+}
+button{
+  background:#F79B44;
+  color:#fff;
+  border-color:#a56931;
+ 
+
+}
+button:hover{
+  border:white;
+}
