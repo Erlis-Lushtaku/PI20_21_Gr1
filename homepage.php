@@ -56,21 +56,19 @@
         </style>
             </head>
             <body>
-                
-        <section class="section1">
 
 
-        <?php
-require('homepage_header.php');
-        ?>
-        <div class="begin">
+ <section class="section1">           
+<?php require('homepage_header.php');
+?>
+ <div class="begin">
             <div class="karta">
                 <div class="permbajtja_para">
                 <div class="fronti">
                     <h3 class="titulli">YOU RELAX</h3>
                     <p class="subtitle">As we grow your brand</p>
                 </div> 
-
+                
                 <div class="backi">
                    <a class="scroll1" href="#aboutus"> <p class="permbajtja_prapa">ABOUT US <i class="fas fa-arrow-circle-down"></i></p> </a>
                 </div>
@@ -213,8 +211,7 @@ require('homepage_header.php');
                                 digital promotion such as display advertising and lead generation.</li>
                         </ol>
                     </p>
-                    </div>
-        
+            </div>
 
             </div>
             <div class="client-text" style="font-family: 'Per-Clients';"> OUR FOCUS IS OUR CLIENTS' SUCCESS</div>
