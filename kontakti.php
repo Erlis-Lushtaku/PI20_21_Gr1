@@ -68,35 +68,10 @@
           </datalist>
           <input type="submit" id="persubmit" formtarget="_blank" value="Send"
             style="margin-bottom:20px;margin-left:210px;opacity:1;" onclick="return validation()">
-        </form>
-        <div class="content">
-          <input type="file" id="def" hidden>
-          <div class="btn">
-            <button id="perbtn" onclick="active()">Choose a file</button>
-          </div>
-          <div class="filname">No file chosen</div>
-        </div>
+        </form>       
       </div>
     </div>
   </div>
-  <script>
-    const defbtn = document.querySelector("#def");
-    const custombtn = document.querySelector("#perbtn");
-    const fileName = document.querySelector(".filname");
-    let regularexpression = /[0-9a-zA-Z\^\&\'\@\{\}\[\]\,\$\=\!\-\#\(\)\.\%\+\~\_ ]+$/;
-    function active() {
-      defbtn.click();
-    }
-    defbtn.addEventListener("change", function () {
-      if (this.value) {
-        let nameval = this.value.match(regularexpression);
-        fileName.textContent = nameval;
-      }
-      else {
-        fileName.textContent = "No file chosen";
-      }
-    });
-  </script>
   <div class="midpart">
     <div class="perimg"><iframe
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11737.935820558094!2d21.167515687511266!3d42.65109881669284!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x13549ec5989c3e7b%3A0xdce360181b819e84!2sBregu%20i%20Diellit%2C%20Pristina!5e0!3m2!1sen!2s!4v1610759990601!5m2!1sen!2s"
