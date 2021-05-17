@@ -1,0 +1,59 @@
+.input-container {
+    display: -ms-flexbox; /* IE10 */
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  body{
+    background-color: #f3f4f7;
+  }
+  .loggedin .content .wrap a{
+    color: black;
+  }
+  .icon {
+    padding: 10px;
+    min-width: 50px;
+    text-align: center;
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 10px;
+    outline: none;
+  }
+  
+  .input-field:focus {
+    border: 2px solid dodgerblue;
+  }
+  
+  .loggedin{
+    margin: 0;
+  }
+  .content {
+    padding: 50px;
+  }
+  
+  /* Set a style for the submit button */
+  .btn {
+    background-color: dodgerblue;
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+  }
+  
+  .btn:hover {
+    opacity: 1;
+  }
+  
+  .admin-table{
+    margin-top: 50px;
+    border: 1px solid red;
+  }
+  .content .removeposts{
+    margin: 15px 0;
+   
+  }
+  
