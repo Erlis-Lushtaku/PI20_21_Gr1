@@ -91,9 +91,6 @@ body{
   margin-bottom: 30px;
 }
 
-.form .signup-form{
-  display: none;
-}
 
 .form .user-datas{
   width: 320px;
@@ -188,4 +185,12 @@ body{
 @font-face {
     font-family:'OurFont';
     src:url(Rajdhani-Bold.ttf);
+}
+.error {
+  width: 92%; 
+  margin: 0px auto; 
+  padding-bottom: 30x; 
+  color: #a94442; 
+  border-radius: 5px; 
+  text-align: left;
 }
