@@ -25,40 +25,24 @@
         <div class="empty">
         </div>
       </div>
-           
     <div class="form">
-      <form class="login-form" action="" method="post">
-        
-        <input class="user-datas" id="username" type="text" name="username" placeholder="Username" required autofocus>
-        <input class="user-datas" id="password" type="password" name="username" placeholder="Password" required>
+      <?php include("php_files/signUp.php"); ?>   
+      <form class="login-form" action="login.php" method="post">
+      <?php include("php_files/displayTextual_errors.php"); ?>  
+        <input class="user-datas" id="username" type="text" name="username" value="<?php echo $username ?>" placeholder="Username" required autofocus>
+        <input class="user-datas" id="password" type="password" name="password"  placeholder="Password" required>
         <div class="log-in1">
           <label class="remember-me"><input type="checkbox" name="">Remember me</label>
           <a href="#">Forgot your password?</a>
         </div>
-        <input class="btn" type="submit" name="login" value="LOGIN" onclick="return validation()">
+        <input class="btn" type="submit" name="login" value="LOGIN" >
         <div class="sign-up">
-          <p>Not Registered? <a href="#">Create an Account</a></p>
+          <p>Not Registered? <a href="signup_form.php">Create an Account</a></p>
         </div>
-      </form>
-      
-      <form class="signup-form" action="" method="post">
-        <input class="user-datas" id="username1" type="text" name="username" placeholder="Username"  required>
-        <input class="user-datas" id="email1" type="email" name="email" placeholder="Email Address" required autocomplete="on">
-        <input class="user-datas" id="password1" type="password" name="password" placeholder="Password" required>
-        <input class="btn" type="submit" name="signup" value="SIGN UP" onclick="return signup_validation()">
-        <div class="sign-up">
-          <p>Already Registered? <a href="#">Sign In</a></p>
-        </div>
+        <?php include('php_files/displayJs.php'); ?>
       </form>
     </div>
 
-    <script type="text/javascript">
-    $('.sign-up a').click(function(){
-      $('form').animate({
-        height: "toggle", opacity:"toggle",
-      }, "slow");
-    });
-    </script>
     <script>
     var data = new Date();
     document.getElementById("datee").innerHTML = data;
