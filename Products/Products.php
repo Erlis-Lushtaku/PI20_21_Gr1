@@ -1,363 +1,164 @@
-function Product(title, price, image, producer, category, city) {
-  this.title = title;
-  this.price = price;
-  this.image = image;
-  this.producer = producer;
-  this.category = category;
-  this.city = city;
-}
+<!DOCTYPE html>
+<html>
 
-var art = {
-  "products": [
-    new Product("Mild Interruption", "100\u20ac", "../Images/abstract2.jpg", "Paint Me", "ART", "Prishtina"),
-    new Product("Mona Lisa and the Cat Lady", "130\u20ac", "../Images/abstract4.jpg", "Paint Me", "ART", "Prishtina"),
-    new Product("An Instinct for Dragons", "180\u20ac", "../Images/abstract3.jpg", "Paint Me", "ART", "Prishtina"),
-    new Product("Bucket Hat", "20\u20ac", "../Images/yarny2.png", "Yarnyhandmade", "ART", "Vushtrri"),
-    new Product("Crop Top", "25\u20ac", "../Images/yarny3.png", "Yarnyhandmade", "ART", "Vushtrri"),
-    new Product("Crop Top", "35\u20ac", "../Images/yarny4.png", "Yarnyhandmade", "ART", "Vushtrri")
-  ]
-}
+<head>
+    <link rel="stylesheet" type="text/css" href="Products.css">
+    <link rel="stylesheet" type="text/css" href="SingleProduct.css">
+    <link rel="stylesheet" type="text/css" href="navigation.css">
+    <title>E-Shopping</title>
+    <link rel="shortcut icon" type="image/png" href="../images/3d.png">
+    <script src="form_validation.js"></script>
+    <script type="text/javascript" src="jquery-3.5.1.js"></script>
+    <script src="https://kit.fontawesome.com/096e4d997b.js" crossorigin="anonymous"></script>
+</head>
 
-var food = {
-  "products": [
-    new Product("Vizatimi", "50\u20ac", "../Images/abetare.jpg", "Coloring Prishtina", "CULTURE", "Prishtina"),
-    new Product("Vizatimi", "50\u20ac", "../Images/baresha.jpg", "Coloring Prishtina", "CULTURE", "Prishtina"),
-    new Product("Vizatimi", "50\u20ac", "../Images/coloring.jpg", "Coloring Prishtina", "CULTURE", "Prishtina"),
-    new Product("Vizatimi", "50\u20ac", "../Images/main1.jpg", "2cm Humans", "CULTURE", "Prishtina"),
-    new Product("Vizatimi", "50\u20ac", "../Images/textil.jpg", "2cm Humans", "CULTURE", "Prishtina"),
-    new Product("Vizatimi", "50\u20ac", "../Images/kelmendi.jpg", "2cm Humans", "CULTURE", "Prishtina")
-  ]
-}
+<body>
 
-var textile = {
-  "products": [
-    new Product("Bakllav", "30\u20ac", "../Images/bakllav.png", "Flizza", "FOODS", "Prishtina"),
-    new Product("Fli", "25\u20ac", "ProductsImages/2.jfif", "Flizza", "FOODS", "Prishtina"),
-    new Product("Kadaif", "20\u20ac", "../Images/kadaif.jpg", "Flizza", "FOODS", "Prishtina"),
-    new Product("Chocolate Cake", "20\u20ac", "../Images/chocolate.jpg", "Dolcetto Vjosa", "FOODS", "Prishtina"),
-    new Product("Fruit Cake", "20\u20ac", "../Images/heart.jpg", "Dolcetto Vjosa", "FOODS", "Prishtina"),
-    new Product("Harry Potter and the Cake of Secrets", "25\u20ac", "../Images/hp.jpg", "Dolcetto Vjosa", "FOODS", "Prishtina")
-  ]
-}
+    <section class="section1" style="background:#999999;">
+        <header>
+            <div class="containeer">
+                <div class="div1"></div>
+                <div class="logo">
+                    <h4>
+                        <span>B</span><span>usiness</span>
+                        <span>P</span><span>romotions</span>
+                        <span>A</span><span>gency</span>
+                    </h4>
+                </div>
+            </div>
+            <nav class="m-nav">
+                <div class="nav-bar">
+                    <ul class="nav-l">
+                        <li class="nav-l-i">
+                            <a href="../homepage.html" class="link" style="margin-left:140px;">Home</a>
+                        </li>
+                        <li class="nav-l-i">
+                            <a href="../Promotions.html" class="link">Promotions</a>
+                        </li>
+                        <li class="nav-l-i">
+                            <a href="Products.html" class="link">E-Shopping</a>
+                        </li>
+                        <li class="nav-l-i">
+                            <div class="dropdown">
+                                <button class="dropbtn"> <a href="../fundingprograms.html" class="link">Funding <i
+                                            class="fa fa-caret-down" style="font-size:18px;"></i></a>
+                                </button>
+                                <div class="dropdown-content">
+                                    <a href="../loans.html">Loans</a>
+                                    <a href="../investment.html">Investment Capital</a>
+                                    <a href="../grants.html">Grants</a>
+                                </div>
+                            </div>
 
-// Loop through each JSON item
-$.each(art.products, function (index, item) {
-  // Create and append HTML tags filled out with the data
-  $("#art-container").append(
-    $("<div>")
-      .attr("class", "product")
-      .append(
-        $("<div>")
-          .attr("class", "product-header")
-          .append($("<a>")
-            .click(function () {
-              localStorage.setItem('prod', JSON.stringify(item));
-            })
-            .attr("href", "SingleProduct.html?")
-            .append($("<img>")
-              .attr("src", item.image)
-            )
-          ),
-        $("<div>")
-          .attr("class", "product-footer")
-          .append($("<a>")
-            .click(function () {
-              localStorage.setItem('prod', JSON.stringify(item));
-            })
-            .attr("href", "SingleProduct.html?")
-            .append($("<h3>").text(item.title))
-          )
-          .append($("<h4>").text(item.price))
-          .append(
-            $("<button>", {
-              attr: "btn",
-              text: "ADD TO CART",
-              click: function () {
-                if (!exists(item.title)) {
-                  $("#cartList").append(
-                    $("<button>")
-                      .attr("id", "btn" + index)
-                      .click(function () { removeItem("btn" + index) })
-                      .append($("<i>").attr("class", "fas fa-times")),
-                    $("<dt>").text(item.title),
-                    $("<dd>").text('x1').attr('class', 'inline'),
-                    $("<dd>").text(parseFloat(item.price.slice(0, -1)).toFixed(2) + '\u20ac')
-                  )
-                }
-                else {
-                  calcQuantity(item.title, item.price);
-                }
-                calcTotal();
-                if (document.getElementById("newTotal").innerHTML != "") {
-                  console.log(document.getElementById("discount").innerHTML.slice(3, -1));
-                  console.log(document.getElementById("totalPrice").innerHTML.slice(0, -1));
-                  document.getElementById("newTotal").innerHTML = " = " + (document.getElementById("totalPrice").innerHTML.slice(0, -1) - document.getElementById("discount").innerHTML.slice(3, -1)).toString() + "\u20ac"
-                }
-              }
-            })
-          )
-      )
-  );
-});
+                        </li>
+                        <li class="nav-l-i">
+                            <a href="../Kontakti.html" class="link">Contact Us</a>
+                        </li>
+                        <li class="tre"><span class="tre3"></span></li>
+                    </ul>
+            </nav>
+            </nav>
+            <nav class="account">
+                <ul class="nav-l">
+                    <li class="nav-l-i">
+                        <a class="link link_button" href="../login.html">Join Us</a>
+                    </li>
+                </ul>
+            </nav>
+            </div>
+            </div>
+            <script>
+                window.addEventListener('scroll', function () {
+                    let header = document.querySelector('header');
+                    let windowPosition = window.scrollY > 0;
+                    header.classList.toggle('scrolling-active', windowPosition);
+                })
+            </script>
+        </header>
+    </section>
+    <section id="seksioni-produktet" style="position: relative; z-index: 4000;">
 
-$.each(food.products, function (index, item) {
-  // Create and append HTML tags filled out with the data
-  $("#food-container").append(
-    $("<div>")
-      .attr("class", "product")
-      .append(
-        $("<div>")
-          .attr("class", "product-header")
-          .append($("<a>")
-            .click(function () {
-              localStorage.setItem('prod', JSON.stringify(item));
-            })
-            .attr("href", "SingleProduct.html?")
-            .append($("<img>")
-              .attr("src", item.image)
-            )
-          ),
-        $("<div>")
-          .attr("class", "product-footer")
-          .append($("<a>")
-            .click(function () {
-              localStorage.setItem('prod', JSON.stringify(item));
-            })
-            .attr("href", "SingleProduct.html?")
-            .append($("<h3>").text(item.title))
-          )
-          .append($("<h4>").text(item.price))
-          .append(
-            $("<button>", {
-              attr: "btn",
-              text: "ADD TO CART",
-              click: function () {
-                if (!exists(item.title)) {
-                  $("#cartList").append(
-                    $("<button>")
-                      .attr("id", "btn" + index)
-                      .click(function () { removeItem("btn" + index) })
-                      .append($("<i>").attr("class", "fas fa-times")),
-                    $("<dt>").text(item.title),
-                    $("<dd>").text('x1').attr('class', 'inline'),
-                    $("<dd>").text(parseFloat(item.price.slice(0, -1)).toFixed(2) + '\u20ac')
-                  )
-                }
-                else {
-                  calcQuantity(item.title, item.price);
-                }
-                calcTotal();
-                if (document.getElementById("newTotal").innerHTML != "") {
-                  console.log(document.getElementById("discount").innerHTML.slice(3, -1));
-                  console.log(document.getElementById("totalPrice").innerHTML.slice(0, -1));
-                  document.getElementById("newTotal").innerHTML = " = " + (document.getElementById("totalPrice").innerHTML.slice(0, -1) - document.getElementById("discount").innerHTML.slice(3, -1)).toString() + "\u20ac"
-                }
-              }
-            })
-          )
-      )
-  );
-});
+        <section>
+            <div id="icons">
+                <i class="fas fa-th"></i>
+                <a href="TableView.html" title="Table View" style="text-shadow: none;"><i class="fas fa-list"></i></a>
+            </div>
+            <div id="Art">
+                <div>
+                    <h1 class="category" id="art-h1">ART</h1>
+                </div>
+                <div class="container" id="art-container"></div>
+            </div>
+            <div id="Food">
+                <div>
+                    <h1 class="category">CULTURE</h1>
+                </div>
+                <div class="container" id="food-container"></div>
+            </div>
+            <div id="Textile">
+                <div>
+                    <h1 class="category">FOODS</h1>
+                </div>
+                <div class="container" id="textile-container"></div>
+            </div>
+        </section>
 
-$.each(textile.products, function (index, item) {
-  // Create and append HTML tags filled out with the data
-  $("#textile-container").append(
-    $("<div>")
-      .attr("class", "product")
-      .append(
-        $("<div>")
-          .attr("class", "product-header")
-          .append($("<a>")
-            .click(function () {
-              localStorage.setItem('prod', JSON.stringify(item));
-            })
-            .attr("href", "SingleProduct.html?")
-            .append($("<img>")
-              .attr("src", item.image)
-            )
-          ),
-        $("<div>")
-          .attr("class", "product-footer")
-          .append($("<a>")
-            .click(function () {
-              localStorage.setItem('prod', JSON.stringify(item));
-            })
-            .attr("href", "SingleProduct.html?")
-            .append($("<h3>").text(item.title))
-          )
-          .append($("<h4>").text(item.price))
-          .append(
-            $("<button>", {
-              attr: "btn",
-              text: "ADD TO CART",
-              click: function () {
-                if (!exists(item.title)) {
-                  $("#cartList").append(
-                    $("<button>")
-                      .attr("id", "btn" + index)
-                      .click(function () { removeItem("btn" + index) })
-                      .append($("<i>").attr("class", "fas fa-times")),
-                    $("<dt>").text(item.title),
-                    $("<dd>").text('x1').attr('class', 'inline'),
-                    $("<dd>").text(parseFloat(item.price.slice(0, -1)).toFixed(2) + '\u20ac')
-                  )
-                }
-                else {
-                  calcQuantity(item.title, item.price);
-                }
-                calcTotal();
-                if (document.getElementById("newTotal").innerHTML != "") {
-                  console.log(document.getElementById("discount").innerHTML.slice(3, -1));
-                  console.log(document.getElementById("totalPrice").innerHTML.slice(0, -1));
-                  document.getElementById("newTotal").innerHTML = " = " + (document.getElementById("totalPrice").innerHTML.slice(0, -1) - document.getElementById("discount").innerHTML.slice(3, -1)).toString() + "\u20ac"
-                }
-              }
-            })
-          )
-      )
-  );
-});
+        <div id="yourCart" style="z-index: 3000; margin-top:20px;">
+            <h2 style="text-decoration: underline; color:#333;">Your Cart</h2>
+            <div id="scrollable">
+                <dl id="cartList">
 
-function CartProd(title, quantity, price) {
-  Product.call(this, title, price);
-  this.quantity = quantity;
-}
+                </dl>
+            </div>
+            <div id="bottom">
+                <h2 id = "bottom-h2" style="color:#333;">Total: <span id="totalPrice" style="color:#333;">0.00€</span><span id="discount"></span><span id="newTotal"></span></h2>
+                <button id="checkout" onclick="openForm()" style="width: 120px; background-color: #d88e2c;"
+                    onMouseOver="this.style.backgroundColor='#333'"
+                    onMouseOut="this.style.backgroundColor=' #d88e2c'">CHECKOUT</button>
+            </div>
+        </div>
 
-var cart = JSON.parse(sessionStorage.getItem('cart'));
+        <div id="bigDiv" style=" z-index: 6000;">
+            <div class="form-popup" id="myForm" style="border-radius: 15px;">
+                <form action="/action_page.php" class="form-container">
+                    <h4>Contact information</h4>
+                    <input type="email" id="email" placeholder="Email" name="email">
+                    <h4>Shipping address</h4>
+                    <input type="text" id="name" placeholder="Name" name="name">
+                    <input type="text" id="surname" placeholder="Surname" name="surname">
+                    <input type="text" id="adress" placeholder="Adress" name="Adress">
+                    <input type="text" id="pcode" placeholder="Postal Code" name="Postal Code">
+                    <input type="text" id="_city" placeholder="City" name="city">
+                    <select id="mySelect" onchange="change_placeholder(this)">
+                        <option value="">Select your country...</option>
+                        <option value="Albania">Albania</option>
+                        <option value="Kosovo">Kosovo</option>
+                        <option value="Montenegro">Montenegro</option>
+                        <option value="North Macedonia">North Macedonia</option>
+                        <option value="Serbia">Serbia</option>
+                    </select>
+                    <input type="tel" id="phone" name="phone" placeholder="Phone number">
+                    <input type="checkbox">
+                    <p style="color:#201c1c">Save this information for next time</p>
+                    </br>
+                    <button type="submit" class="btn" onclick="return validation() ">Submit</button>
+                    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <?php require('Product_real_php.php'); ?> 
+    <div class="custom-shape-divider-top-1610755808">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M0,0V6c0,21.6,291,111.46,741,110.26,445.39,3.6,459-88.3,459-110.26V0Z" class="shape-fill"></path>
+        </svg>
+    </div>
+    <div class="custom-shape-divider-bottom-1610755546" style="margin-bottom:-2400px;">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M0,0V6c0,21.6,291,111.46,741,110.26,445.39,3.6,459-88.3,459-110.26V0Z" class="shape-fill"></path>
+        </svg>
+    </div>
 
-$.each(cart, function (index, item) {
-  $("#cartList").append(
-    $("<button>")
-      .attr("id", "btn" + index)
-      .click(function () { removeItem("btn" + index) })
-      .append($("<i>").attr("class", "fas fa-times")),
-    $("<dt>").text(item.title),
-    $("<dd>").text(item.quantity).attr('class', 'inline'),
-    $("<dd>").text(item.price)
-  )
-});
-calcTotal();
+</body>
 
-function passCart() {
-  const cart = [];
-
-  var cartList = document.getElementById("cartList");
-  var titles = cartList.getElementsByTagName("dt");
-  var quantities_prices = cartList.getElementsByTagName("dd");
-
-  var ddIndex = 0;
-  for (let i = 0; i < titles.length; i++) {
-    var product = new CartProd(titles[i].innerHTML, quantities_prices[ddIndex].innerHTML, quantities_prices[ddIndex + 1].innerHTML);
-    cart.push(product);
-    ddIndex += 2;
-  }
-
-  sessionStorage.setItem('cart', JSON.stringify(cart));
-}
-
-function removeItem(elementId) {
-  $("#" + elementId).next().remove();
-  $("#" + elementId).next().remove();
-  $("#" + elementId).next().remove();
-  $("#" + elementId).remove();
-  calcTotal();
-  if (document.getElementById("newTotal").innerHTML != "") {
-    console.log(document.getElementById("discount").innerHTML.slice(3, -1));
-    console.log(document.getElementById("totalPrice").innerHTML.slice(0, -1));
-    document.getElementById("newTotal").innerHTML = " = " + (document.getElementById("totalPrice").innerHTML.slice(0, -1) - document.getElementById("discount").innerHTML.slice(3, -1)).toString() + "\u20ac"
-  }
-}
-
-function calcQuantity(title, price) {
-  var cartList = document.getElementById("cartList").getElementsByTagName("dt");
-
-  for (let i = 0; i < cartList.length; i++) {
-    if (cartList[i].innerHTML == title) {
-
-      let quantity = cartList[i].nextElementSibling;
-      quantity.innerHTML = 'x' + (parseInt(quantity.innerHTML.substring(1)) + 1).toString();
-
-      let newPrice = quantity.nextElementSibling;
-      newPrice.innerHTML = (parseFloat(price.slice(0, -1)) * parseInt(quantity.innerHTML.substring(1))).toFixed(2) + '\u20ac';
-
-      break;
-    }
-  }
-};
-
-function exists(title) {
-  var cartList = document.getElementById("cartList").getElementsByTagName("dt");
-
-  for (let i = 0; i < cartList.length; i++) {
-    if (cartList[i].innerHTML == title) {
-      return true;
-    }
-  }
-
-  return false;
-};
-
-function calcTotal() {
-  var cartList = document.getElementById("cartList").getElementsByTagName("dd");
-  var total = 0;
-
-  for (let i = 0; i < cartList.length; i++) {
-    if (i % 2 == 1) {
-      total += parseFloat(cartList[i].innerHTML.slice(0, -1))
-    }
-  }
-
-  document.getElementById("totalPrice").innerHTML = total.toFixed(2).toString() + "\u20ac"
-};
-
-window.onbeforeunload = function () {
-  passCart();
-};
-
-function random(min, max) {
-  const num = Math.floor(Math.random() * (max - min + 1)) + min;
-  return num;
-};
-
-function CurrentUser(coupon) {
-  this.coupon = coupon;
-}
-
-var checkoutClicked;
-
-$("#checkout").click(function () {
-  checkoutClicked = localStorage.getItem("checkoutClicked");
-  if (checkoutClicked == null) {
-    checkoutClicked = "false";
-  }
-  console.log(checkoutClicked);
-  if (checkoutClicked == "false") {
-    localStorage.setItem("checkoutClicked", "true");
-    console.log(checkoutClicked);
-    let rewardPrc = random(5, 25);
-    let oldTotal = document.getElementById("totalPrice").innerHTML.slice(0, -1);
-    let reward = oldTotal * rewardPrc / 100;
-    let newTotal = oldTotal - reward;
-    $("#discount").text(" - " + reward + "\u20ac");
-    $("#newTotal").text(" = " + newTotal + "\u20ac");
-  }
-})
-/* function addItem(title, price) {
-  $("#cartList").append(
-    $("<li>").text(title + " - " + price)
-  )
-}; */
-
-{/* 
-  <div id="art-container">
-      <div class="product">
-          <div class="product-header">
-              <img src=${image} alt="product"></img>
-          </div>
-          <div class="product-footer">
-              <h3>${title}</h3>
-              <h4>${price}</h4>
-          </div>
-      </div> 
-  </div>
-  */}
+</html>
