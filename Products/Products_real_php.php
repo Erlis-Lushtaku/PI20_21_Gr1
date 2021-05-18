@@ -1,47 +1,28 @@
-function Product(title, price, image, producer, category, city) {
-  this.title = title;
-  this.price = price;
-  this.image = image;
-  this.producer = producer;
-  this.category = category;
-  this.city = city;
-}
+<?php
+    $host = '127.0.0.1';
+    $db_username = 'root';
+    $db_password = '1249348089';
+    $dbname = 'users';
+    $DBconnection = mysqli_connect($host, $db_username, $db_password, $dbname);
 
-var art = {
-  "products": [
-    new Product("Mild Interruption", "100\u20ac", "../Images/abstract2.jpg", "Paint Me", "ART", "Prishtina"),
-    new Product("Mona Lisa and the Cat Lady", "130\u20ac", "../Images/abstract4.jpg", "Paint Me", "ART", "Prishtina"),
-    new Product("An Instinct for Dragons", "180\u20ac", "../Images/abstract3.jpg", "Paint Me", "ART", "Prishtina"),
-    new Product("Bucket Hat", "20\u20ac", "../Images/yarny2.png", "Yarnyhandmade", "ART", "Vushtrri"),
-    new Product("Crop Top", "25\u20ac", "../Images/yarny3.png", "Yarnyhandmade", "ART", "Vushtrri"),
-    new Product("Crop Top", "35\u20ac", "../Images/yarny4.png", "Yarnyhandmade", "ART", "Vushtrri")
-  ]
-}
+    $categories = array('art', 'food', 'textile');
+    foreach ($categories as $category) {
+        ${$category."_query"} = "SELECT * FROM products WHERE category='$category'";
+        $result = mysqli_query($DBconnection, ${$category."_query"});
+        ${$category."_products"} = $result->fetch_all(MYSQLI_ASSOC);
+    }
 
-var food = {
-  "products": [
-    new Product("Vizatimi", "50\u20ac", "../Images/abetare.jpg", "Coloring Prishtina", "CULTURE", "Prishtina"),
-    new Product("Vizatimi", "50\u20ac", "../Images/baresha.jpg", "Coloring Prishtina", "CULTURE", "Prishtina"),
-    new Product("Vizatimi", "50\u20ac", "../Images/coloring.jpg", "Coloring Prishtina", "CULTURE", "Prishtina"),
-    new Product("Vizatimi", "50\u20ac", "../Images/main1.jpg", "2cm Humans", "CULTURE", "Prishtina"),
-    new Product("Vizatimi", "50\u20ac", "../Images/textil.jpg", "2cm Humans", "CULTURE", "Prishtina"),
-    new Product("Vizatimi", "50\u20ac", "../Images/kelmendi.jpg", "2cm Humans", "CULTURE", "Prishtina")
-  ]
-}
+?>
 
-var textile = {
-  "products": [
-    new Product("Bakllav", "30\u20ac", "../Images/bakllav.png", "Flizza", "FOODS", "Prishtina"),
-    new Product("Fli", "25\u20ac", "ProductsImages/2.jfif", "Flizza", "FOODS", "Prishtina"),
-    new Product("Kadaif", "20\u20ac", "../Images/kadaif.jpg", "Flizza", "FOODS", "Prishtina"),
-    new Product("Chocolate Cake", "20\u20ac", "../Images/chocolate.jpg", "Dolcetto Vjosa", "FOODS", "Prishtina"),
-    new Product("Fruit Cake", "20\u20ac", "../Images/heart.jpg", "Dolcetto Vjosa", "FOODS", "Prishtina"),
-    new Product("Harry Potter and the Cake of Secrets", "25\u20ac", "../Images/hp.jpg", "Dolcetto Vjosa", "FOODS", "Prishtina")
-  ]
-}
+<script>
+
+  var artProducts = <?php echo json_encode($art_products) ?>;
+  var foodProducts = <?php echo json_encode($food_products) ?>;
+  var textileProducts = <?php echo json_encode($textile_products) ?>;
+
 
 // Loop through each JSON item
-$.each(art.products, function (index, item) {
+$.each(artProducts, function (index, item) {
   // Create and append HTML tags filled out with the data
   $("#art-container").append(
     $("<div>")
@@ -100,7 +81,7 @@ $.each(art.products, function (index, item) {
   );
 });
 
-$.each(food.products, function (index, item) {
+$.each(foodProducts, function (index, item) {
   // Create and append HTML tags filled out with the data
   $("#food-container").append(
     $("<div>")
@@ -159,7 +140,7 @@ $.each(food.products, function (index, item) {
   );
 });
 
-$.each(textile.products, function (index, item) {
+$.each(textileProducts, function (index, item) {
   // Create and append HTML tags filled out with the data
   $("#textile-container").append(
     $("<div>")
@@ -342,22 +323,5 @@ $("#checkout").click(function () {
     $("#newTotal").text(" = " + newTotal + "\u20ac");
   }
 })
-/* function addItem(title, price) {
-  $("#cartList").append(
-    $("<li>").text(title + " - " + price)
-  )
-}; */
 
-{/* 
-  <div id="art-container">
-      <div class="product">
-          <div class="product-header">
-              <img src=${image} alt="product"></img>
-          </div>
-          <div class="product-footer">
-              <h3>${title}</h3>
-              <h4>${price}</h4>
-          </div>
-      </div> 
-  </div>
-  */}
+</script>
