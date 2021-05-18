@@ -12,6 +12,8 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300&family=Roboto+Condensed:ital,wght@1,700&display=swap"
     rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  
 
   <link rel="stylesheet" href="Kontakti.css">
   <link rel="stylesheet" href="navigation.css">
@@ -47,61 +49,41 @@
           </tr>
         </table>
 
-<?php 
-if(isset($_POST['submit'])){
-$name=$_POST['name'];
-$email=$_POST['email'];
-$company=$_POST['company'];
-$budget=$_POST['number'];
+        <script>
+  $(document).ready(function () {
+    $('#persubmit').click(function (e) {
+      e.preventDefault();
+      var name = $('#name').val();
+      var email = $('#email').val();
+      var number = $('#budget').val();
+      var company = $('#company').val();
+      var details= $('#details').val();
+     var categories=$('#categories-choice').val();
+     if($("input[name='person']").is(':checked')){
+     var person = $("input[name='person']:checked").val();
+    }
+    else{
+      var person="i pacaktuar";
+    }
+      $.ajax
+        ({
+          type: "POST",
+          url: "ajax_submitcontactus.php",
+          data:{"name":name ,"email":email,"number":number,"company":company,"details":details,"categories-choice":categories,"person":person},
+          success: function (data) {
+            $('#persend').html("Message sent!");
+          }
+        });
+    });
+  });
+</script>
 
-$headers    = "X-Mailer: PHP/" . phpversion() . "\r\n";
-$headers    .= "MIME-Version: 1.0" . "\r\n";
-$headers    .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-
-if (isset($_POST['person'])){
-  $cli_inv=$_POST['person'];
-  $subject="Lloji:".$cli_inv;
-  }
-  else{
-    $subject="Lloji:i pacaktuar";
-  }
-  
-$message="<html><body>";
-$message.="<p><b>Emri:</b>".$name."</p>";
-$message.="<p><b>Email:</b>".$email."</p>";
-$message.="<p><b>Company:</b>".$company."</p>";
-$message.="<p><b>Budget:</b>".$budget."</p>";
-if(trim($_POST['details'])!=""){
-  $message.="<p><b>Pershkrimi per detajet e projektit:</b>".$_POST['details']."</p>";
-}
-else{
-  $message.="<p><b>Pershkrimi per detajet e projektit:</b>nuk ka</p>";
-}
-if(trim($_POST['categories-choice'])!=""){
-  $message.="<p><b>Cfare po kerkoni:</b>".$_POST['categories-choice']."</p>";
-  }
-  else{
-    $message.="<p><b>Cfare po kerkoni:</b>e pacaktuar</p>";
-  }
-$message.="</body></html>";
-
-  $to = "donatsinani70@gmail.com";
-
-  if(mail($to,$subject,$message,$headers)){
-echo"<script>alert('u dergu fajlli me sukses');</script>";
-  }
-  else{
-    echo"<script>alert('nuk u dergu fajlli me sukses');</script>";
-  }
-}
-?>
-
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+        <form method="post">
           <input type="text" id="name" name="name" class="text-box" placeholder="Your Name" required>
           <input type="email" id="email" name="email" class="text-box" placeholder="Email" required><br />
           <input type="text" id="company" name="company" class="text-box" placeholder="Company" required>
           <input type="text" id="budget" name="number" class="text-box" placeholder="Budget" required><br />
-          <textarea name="details" placeholder="Project details (optional)"></textarea>
+          <textarea name="details" placeholder="Project details (optional)" id="details"></textarea>
           <label for="" id="perlabel">Are you investor or a client?</label><br />
           <input type="radio" id="client" name="person" value="client">
           <label for="" id="l2">Client</label><br />
@@ -118,6 +100,7 @@ echo"<script>alert('u dergu fajlli me sukses');</script>";
           </datalist>
           <input type="submit" id="persubmit" formtarget="_blank" value="Send" name="submit"
             style="margin-bottom:20px;margin-left:210px;opacity:1;" onclick="return validation()">
+            <div style="margin-left:250px" id="persend"></div>
         </form>       
       </div>
     </div>
