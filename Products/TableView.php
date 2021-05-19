@@ -90,7 +90,7 @@
         </div>
     </div>
 </section>
-<script type="text/javascript" src="TableView.js"></script>
+<?php require('TableView_real_php.php'); ?> 
 
 <div id="bigDiv" style="z-index: 6000;">
     <div class="form-popup" id="myForm" style="border-radius: 15px;">

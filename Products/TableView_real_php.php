@@ -1,3 +1,4 @@
+<script>
 function Product(title, price, image, producer, category, city) {
     this.title = title;
     this.price = price;
@@ -159,7 +160,7 @@ function CartProd(title, quantity, price) {
     this.quantity = quantity;
 }
 
-var cart = JSON.parse(sessionStorage.getItem('cart'));
+var cart = JSON.parse(<?php echo $_SESSION["cart"]; ?>)
 
 $.each(cart, function (index, item) {
     $("#cartList").append(
@@ -187,8 +188,12 @@ function passCart() {
         cart.push(product);
         ddIndex += 2;
     }
-
-    sessionStorage.setItem('cart', JSON.stringify(cart));
+    <?php 
+        if(!isset($_SESSION["cart"])) {
+            $_SESSION["cart"] = echo "<script>JSON.stringify(cart)</script>";
+        }
+        $cart = $_SESSION["cart"];
+    ?>
 }
 
 function removeItem(elementId) {
@@ -244,30 +249,4 @@ function calcTotal() {
 window.onbeforeunload = function () {
     passCart();
 };
-
-{/* <table>
-      <tr>
-          <th>Title</th>
-          <th>Price</th>
-          <th>Producer</th>
-          <th>Category</th>
-          <th>City</th>
-      </tr>
-      <tr>
-          <td></td>
-      </tr>
-  </table> */}
-
-{/* 
-    <div id="art-container">
-        <div class="product">
-            <div class="product-header">
-                <img src=${image} alt="product"></img>
-            </div>
-            <div class="product-footer">
-                <h3>${title}</h3>
-                <h4>${price}</h4>
-            </div>
-        </div> 
-    </div>
-    */}
+</script>
