@@ -14,7 +14,6 @@
     rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   
-
   <link rel="stylesheet" href="Kontakti.css">
   <link rel="stylesheet" href="navigation.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
@@ -70,14 +69,13 @@
           type: "POST",
           url: "ajax_submitcontactus.php",
           data:{"name":name ,"email":email,"number":number,"company":company,"details":details,"categories-choice":categories,"person":person},
-          success: function (data) {
+          success: function () {
             $('#persend').html("Message sent!");
           }
         });
     });
   });
 </script>
-
         <form method="post">
           <input type="text" id="name" name="name" class="text-box" placeholder="Your Name" required>
           <input type="email" id="email" name="email" class="text-box" placeholder="Email" required><br />
