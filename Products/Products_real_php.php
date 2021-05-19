@@ -5,7 +5,7 @@
     $dbname = 'users';
     $DBconnection = mysqli_connect($host, $db_username, $db_password, $dbname);
 
-    $categories = array('art', 'food', 'textile');
+    $categories = array('art', 'culture', 'foods');
     foreach ($categories as $category) {
         ${$category."_query"} = "SELECT * FROM products WHERE category='$category'";
         $result = mysqli_query($DBconnection, ${$category."_query"});
@@ -17,8 +17,8 @@
 <script>
 
   var artProducts = <?php echo json_encode($art_products) ?>;
-  var foodProducts = <?php echo json_encode($food_products) ?>;
-  var textileProducts = <?php echo json_encode($textile_products) ?>;
+  var cultureProducts = <?php echo json_encode($culture_products) ?>;
+  var foodProducts = <?php echo json_encode($foods_products) ?>;
 
 
 // Loop through each JSON item
@@ -81,7 +81,7 @@ $.each(artProducts, function (index, item) {
   );
 });
 
-$.each(foodProducts, function (index, item) {
+$.each(cultureProducts, function (index, item) {
   // Create and append HTML tags filled out with the data
   $("#food-container").append(
     $("<div>")
@@ -140,7 +140,7 @@ $.each(foodProducts, function (index, item) {
   );
 });
 
-$.each(textileProducts, function (index, item) {
+$.each(foodProducts, function (index, item) {
   // Create and append HTML tags filled out with the data
   $("#textile-container").append(
     $("<div>")
@@ -204,7 +204,7 @@ function CartProd(title, quantity, price) {
   this.quantity = quantity;
 }
 
-var cart = JSON.parse(<?php echo $_SESSION["cart"]; ?>)
+var cart = JSON.parse(sessionStorage.getItem('cart'));
 
 $.each(cart, function (index, item) {
   $("#cartList").append(
@@ -232,12 +232,8 @@ function passCart() {
     cart.push(product);
     ddIndex += 2;
   }
-  <?php 
-    if(!isset($_SESSION["cart"])) {
-      $_SESSION["cart"] = echo "<script>JSON.stringify(cart)</script>";
-    }
-    $cart = $_SESSION["cart"];
-  ?>
+
+  sessionStorage.setItem('cart', JSON.stringify(cart));
 }
 
 function removeItem(elementId) {
