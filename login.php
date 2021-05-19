@@ -29,10 +29,10 @@
       <?php include("php_files/signUp.php"); ?>   
       <form class="login-form" action="login.php" method="post">
       <?php include("php_files/displayTextual_errors.php"); ?>  
-        <input class="user-datas" id="username" type="text" name="username" value="<?php echo $username ?>" placeholder="Username" required autofocus>
-        <input class="user-datas" id="password" type="password" name="password"  placeholder="Password" required>
+        <input class="user-datas" id="username" type="text" name="username" value="<?php if(isset($_COOKIE["username"])){echo $_COOKIE["username"];} else{echo $username;} ?>" placeholder="Username" required autofocus>
+        <input class="user-datas" id="password" type="password" name="password" value="<?php if(isset($_COOKIE["password"])) { echo $_COOKIE["password"]; } ?>"  placeholder="Password"  required>
         <div class="log-in1">
-          <label class="remember-me"><input type="checkbox" name="">Remember me</label>
+          <label class="remember-me"><input type="checkbox" name="remember">Remember me</label>
           <a href="#">Forgot your password?</a>
         </div>
         <input class="btn" type="submit" name="login" value="LOGIN" >
