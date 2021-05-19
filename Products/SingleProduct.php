@@ -148,8 +148,8 @@
             this.price = price;
         }
 
-        var cart = JSON.parse(sessionStorage.getItem('cart'));
-
+        var cart = JSON.parse(<?php echo $_SESSION["cart"]; ?>)
+        
         $.each(cart, function (index, item) {
             $("#cartList").append(
                 $("<button>")
@@ -196,8 +196,12 @@
                 cart.push(product);
                 ddIndex += 2;
             }
-
-            sessionStorage.setItem('cart', JSON.stringify(cart));
+            <?php 
+                if(!isset($_SESSION["cart"])) {
+                    $_SESSION["cart"] = echo "<script>JSON.stringify(cart)</script>";
+                }
+                $cart = $_SESSION["cart"];
+            ?>
         }
 
         function removeItem(elementId) {

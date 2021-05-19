@@ -1,11 +1,11 @@
 <?php
     $host = '127.0.0.1';
     $db_username = 'root';
-    $db_password = '1249348089';
+    $db_password = 'root';
     $dbname = 'users';
     $DBconnection = mysqli_connect($host, $db_username, $db_password, $dbname);
 
-    $categories = array('art', 'food', 'textile');
+    $categories = array('art', 'culture', 'foods');
     foreach ($categories as $category) {
         ${$category."_query"} = "SELECT * FROM products WHERE category='$category'";
         $result = mysqli_query($DBconnection, ${$category."_query"});
@@ -17,8 +17,8 @@
 <script>
 
   var artProducts = <?php echo json_encode($art_products) ?>;
-  var foodProducts = <?php echo json_encode($food_products) ?>;
-  var textileProducts = <?php echo json_encode($textile_products) ?>;
+  var cultureProducts = <?php echo json_encode($culture_products) ?>;
+  var foodProducts = <?php echo json_encode($foods_products) ?>;
 
 
 // Loop through each JSON item
@@ -81,7 +81,7 @@ $.each(artProducts, function (index, item) {
   );
 });
 
-$.each(foodProducts, function (index, item) {
+$.each(cultureProducts, function (index, item) {
   // Create and append HTML tags filled out with the data
   $("#food-container").append(
     $("<div>")
@@ -140,7 +140,7 @@ $.each(foodProducts, function (index, item) {
   );
 });
 
-$.each(textileProducts, function (index, item) {
+$.each(foodProducts, function (index, item) {
   // Create and append HTML tags filled out with the data
   $("#textile-container").append(
     $("<div>")

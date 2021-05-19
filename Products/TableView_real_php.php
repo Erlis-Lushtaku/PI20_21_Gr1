@@ -1,46 +1,26 @@
-function Product(title, price, image, producer, category, city) {
-    this.title = title;
-    this.price = price;
-    this.image = image;
-    this.producer = producer;
-    this.category = category;
-    this.city = city;
-}
+<?php
+    $host = '127.0.0.1';
+    $db_username = 'root';
+    $db_password = 'root';
+    $dbname = 'users';
+    $DBconnection = mysqli_connect($host, $db_username, $db_password, $dbname);
 
-var art = {
-    "products": [
-        new Product("Mild Interruption", "100\u20ac", "../Images/abstract2.jpg", "Paint Me", "ART", "Prishtina"),
-        new Product("Mona Lisa and the Cat Lady", "130\u20ac", "../Images/abstract4.jpg", "Paint Me", "ART", "Prishtina"),
-        new Product("An Instinct for Dragons", "180\u20ac", "../Images/abstract3.jpg", "Paint Me", "ART", "Prishtina"),
-        new Product("Bucket Hat", "20\u20ac", "../Images/yarny2.png", "Yarnyhandmade", "ART", "Vushtrri"),
-        new Product("Crop Top", "25\u20ac", "../Images/yarny3.png", "Yarnyhandmade", "ART", "Vushtrri"),
-        new Product("Crop Top", "35\u20ac", "../Images/yarny4.png", "Yarnyhandmade", "ART", "Vushtrri")
-      ]
-}
+    $categories = array('art', 'culture', 'foods');
+    foreach ($categories as $category) {
+        ${$category."_query"} = "SELECT * FROM products WHERE category='$category'";
+        $result = mysqli_query($DBconnection, ${$category."_query"});
+        ${$category."_products"} = $result->fetch_all(MYSQLI_ASSOC);
+    }
 
-var food = {
-    "products": [
-        new Product("Pite", "50\u20ac", "../Images/abstract2.jpg", "Coloring Prishtina", "CULTURE", "Prishtina"),
-        new Product("Pite", "50\u20ac", "../Images/abstract2.jpg", "Coloring Prishtina", "CULTURE", "Prishtina"),
-        new Product("Pite", "50\u20ac", "../Images/abstract2.jpg", "Coloring Prishtina", "CULTURE", "Prishtina"),
-        new Product("Pite", "50\u20ac", "../Images/abstract2.jpg", "2cm Humans", "CULTURE", "Prishtina"),
-        new Product("Pite", "50\u20ac", "../Images/abstract2.jpg", "2cm Humans", "CULTURE", "Prishtina"),
-        new Product("Pite", "50\u20ac", "../Images/abstract2.jpg", "2cm Humans", "CULTURE", "Prishtina")
-      ]
-}
+?>
 
-var textile = {
-    "products": [
-        new Product("Bakllav", "30\u20ac", "../Images/bakllav.png", "Flizza", "FOODS", "Prishtina"),
-        new Product("Fli", "25\u20ac", "ProductsImages/2.jfif", "Flizza", "FOODS", "Prishtina"),
-        new Product("Kadaif", "20\u20ac", "../Images/kadaif.jpg", "Flizza", "FOODS", "Prishtina"),
-        new Product("Chocolate Cake", "20\u20ac", "../Images/chocolate.jpg", "Dolcetto Vjosa", "FOODS", "Prishtina"),
-        new Product("Fruit Cake", "20\u20ac", "../Images/heart.jpg", "Dolcetto Vjosa", "FOODS", "Prishtina"),
-        new Product("Harry Potter and the Cake of Secrets", "25\u20ac", "../Images/hp.jpg", "Dolcetto Vjosa", "FOODS", "Prishtina")
-      ]
-}
+<script>
 
-$.each(art.products, function (index, item) {
+var artProducts = <?php echo json_encode($art_products) ?>;
+var cultureProducts = <?php echo json_encode($culture_products) ?>;
+var foodProducts = <?php echo json_encode($foods_products) ?>;
+
+$.each(artProducts, function (index, item) {
     $("#art-container").append(
         $("<tr>").append(
             $("<a>")
@@ -78,7 +58,7 @@ $.each(art.products, function (index, item) {
     )
 });
 
-$.each(food.products, function (index, item) {
+$.each(cultureProducts, function (index, item) {
     $("#food-container").append(
         $("<tr>").append(
             $("<a>")
@@ -116,7 +96,7 @@ $.each(food.products, function (index, item) {
     )
 });
 
-$.each(textile.products, function (index, item) {
+$.each(foodProducts, function (index, item) {
     $("#textile-container").append(
         $("<tr>").append(
             $("<a>")
@@ -159,7 +139,7 @@ function CartProd(title, quantity, price) {
     this.quantity = quantity;
 }
 
-var cart = JSON.parse(sessionStorage.getItem('cart'));
+var cart = JSON.parse(<?php echo $_SESSION["cart"]; ?>)
 
 $.each(cart, function (index, item) {
     $("#cartList").append(
@@ -187,8 +167,12 @@ function passCart() {
         cart.push(product);
         ddIndex += 2;
     }
-
-    sessionStorage.setItem('cart', JSON.stringify(cart));
+    <?php 
+        if(!isset($_SESSION["cart"])) {
+            $_SESSION["cart"] = echo "<script>JSON.stringify(cart)</script>";
+        }
+        $cart = $_SESSION["cart"];
+    ?>
 }
 
 function removeItem(elementId) {
@@ -244,30 +228,4 @@ function calcTotal() {
 window.onbeforeunload = function () {
     passCart();
 };
-
-{/* <table>
-      <tr>
-          <th>Title</th>
-          <th>Price</th>
-          <th>Producer</th>
-          <th>Category</th>
-          <th>City</th>
-      </tr>
-      <tr>
-          <td></td>
-      </tr>
-  </table> */}
-
-{/* 
-    <div id="art-container">
-        <div class="product">
-            <div class="product-header">
-                <img src=${image} alt="product"></img>
-            </div>
-            <div class="product-footer">
-                <h3>${title}</h3>
-                <h4>${price}</h4>
-            </div>
-        </div> 
-    </div>
-    */}
+</script>
