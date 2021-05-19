@@ -1,7 +1,6 @@
 <?php
-require_once 'db.php';
 try {
-    $DBconnection = mysqli_connect($host, $db_username, $db_password, $dbname );
+    $DBconnection = mysqli_connect('127.0.0.1:3306', 'root', 'root', 'users' );
 } catch (Exception $pe) {
     die("Could not connect to the database $dbname :" . $pe->getMessage());
 }
@@ -25,7 +24,7 @@ if(isset($_POST['signup']))
     new signup_validation($username,$password,'username1','password1',$password2, $email_address);
     $checkExistenceOfUserOrEmail = "SELECT * FROM users WHERE username='$username' OR email_address='$email_address'";
     $result = mysqli_query($DBconnection, $checkExistenceOfUserOrEmail);
-    $user = mysqli_fetch_assoc($result);;
+    $user = mysqli_fetch_assoc($result);
     if ($user) { // if user exists
         if ($user['username'] == $username) {
             array_push($errors, "This username is already taken.");
