@@ -70,7 +70,7 @@
           url: "ajax_submitcontactus.php",
           data:{"name":name ,"email":email,"number":number,"company":company,"details":details,"categories-choice":categories,"person":person},
           success: function () {
-            $('#persend').html("Message sent!");
+            $('#persend').html("Waiting...");
           }
         });
     });
