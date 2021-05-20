@@ -26,7 +26,7 @@
 <section id="seksioni-produktet" style="position: relative; z-index: 4000;">
     <section>
         <div id="icons">
-            <a href="Products.html" title="Gallery View" style="text-shadow: none;"><i class="fas fa-th"></i></a>
+            <a href="Products.php" title="Gallery View" style="text-shadow: none;"><i class="fas fa-th"></i></a>
             <i class="fas fa-list"></i>
         </div>
         <div id="Art">

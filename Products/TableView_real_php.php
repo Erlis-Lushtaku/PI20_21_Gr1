@@ -27,7 +27,7 @@ $.each(artProducts, function (index, item) {
                 .click(function () {
                     localStorage.setItem('prod', JSON.stringify(item));
                 })
-                .attr("href", "SingleProduct.html")
+                .attr("href", "SingleProduct.php")
                 .append(
                     $("<td>").text(item.title)),
             $("<td>").text(item.price),
@@ -65,7 +65,7 @@ $.each(cultureProducts, function (index, item) {
                 .click(function () {
                     localStorage.setItem('prod', JSON.stringify(item));
                 })
-                .attr("href", "SingleProduct.html")
+                .attr("href", "SingleProduct.php")
                 .append(
                     $("<td>").text(item.title)),
             $("<td>").text(item.price),
@@ -103,7 +103,7 @@ $.each(foodProducts, function (index, item) {
                 .click(function () {
                     localStorage.setItem('prod', JSON.stringify(item));
                 })
-                .attr("href", "SingleProduct.html")
+                .attr("href", "SingleProduct.php")
                 .append(
                     $("<td>").text(item.title)),
             $("<td>").text(item.price),
@@ -139,7 +139,7 @@ function CartProd(title, quantity, price) {
     this.quantity = quantity;
 }
 
-var cart = JSON.parse(<?php echo $_SESSION["cart"]; ?>)
+var cart = JSON.parse(sessionStorage.getItem('cart'));
 
 $.each(cart, function (index, item) {
     $("#cartList").append(
@@ -167,12 +167,8 @@ function passCart() {
         cart.push(product);
         ddIndex += 2;
     }
-    <?php 
-        if(!isset($_SESSION["cart"])) {
-            $_SESSION["cart"] = echo "<script>JSON.stringify(cart)</script>";
-        }
-        $cart = $_SESSION["cart"];
-    ?>
+
+    sessionStorage.setItem('cart', JSON.stringify(cart));
 }
 
 function removeItem(elementId) {

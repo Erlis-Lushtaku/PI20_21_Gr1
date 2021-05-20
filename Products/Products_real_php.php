@@ -1,7 +1,7 @@
 <?php
     $host = '127.0.0.1';
     $db_username = 'root';
-    $db_password = '1249348089';
+    $db_password = 'root';
     $dbname = 'users';
     $DBconnection = mysqli_connect($host, $db_username, $db_password, $dbname);
 
@@ -34,7 +34,7 @@ $.each(artProducts, function (index, item) {
             .click(function () {
               localStorage.setItem('prod', JSON.stringify(item));
             })
-            .attr("href", "SingleProduct.html?")
+            .attr("href", "SingleProduct.php")
             .append($("<img>")
               .attr("src", item.image)
             )
@@ -45,7 +45,7 @@ $.each(artProducts, function (index, item) {
             .click(function () {
               localStorage.setItem('prod', JSON.stringify(item));
             })
-            .attr("href", "SingleProduct.html?")
+            .attr("href", "SingleProduct.php")
             .append($("<h3>").text(item.title))
           )
           .append($("<h4>").text(item.price))
@@ -93,7 +93,7 @@ $.each(cultureProducts, function (index, item) {
             .click(function () {
               localStorage.setItem('prod', JSON.stringify(item));
             })
-            .attr("href", "SingleProduct.html?")
+            .attr("href", "SingleProduct.php")
             .append($("<img>")
               .attr("src", item.image)
             )
@@ -104,7 +104,7 @@ $.each(cultureProducts, function (index, item) {
             .click(function () {
               localStorage.setItem('prod', JSON.stringify(item));
             })
-            .attr("href", "SingleProduct.html?")
+            .attr("href", "SingleProduct.php")
             .append($("<h3>").text(item.title))
           )
           .append($("<h4>").text(item.price))
@@ -152,7 +152,7 @@ $.each(foodProducts, function (index, item) {
             .click(function () {
               localStorage.setItem('prod', JSON.stringify(item));
             })
-            .attr("href", "SingleProduct.html?")
+            .attr("href", "SingleProduct.php")
             .append($("<img>")
               .attr("src", item.image)
             )
@@ -163,7 +163,7 @@ $.each(foodProducts, function (index, item) {
             .click(function () {
               localStorage.setItem('prod', JSON.stringify(item));
             })
-            .attr("href", "SingleProduct.html?")
+            .attr("href", "SingleProduct.php")
             .append($("<h3>").text(item.title))
           )
           .append($("<h4>").text(item.price))
@@ -220,20 +220,20 @@ $.each(cart, function (index, item) {
 calcTotal();
 
 function passCart() {
-  const cart = [];
+    const cart = []
 
-  var cartList = document.getElementById("cartList");
-  var titles = cartList.getElementsByTagName("dt");
-  var quantities_prices = cartList.getElementsByTagName("dd");
+    var cartList = document.getElementById("cartList");
+    var titles = cartList.getElementsByTagName("dt");
+    var quantities_prices = cartList.getElementsByTagName("dd");
 
-  var ddIndex = 0;
-  for (let i = 0; i < titles.length; i++) {
-    var product = new CartProd(titles[i].innerHTML, quantities_prices[ddIndex].innerHTML, quantities_prices[ddIndex + 1].innerHTML);
-    cart.push(product);
-    ddIndex += 2;
-  }
+    var ddIndex = 0;
+    for (let i = 0; i < titles.length; i++) {
+        var product = new CartProd(titles[i].innerHTML, quantities_prices[ddIndex].innerHTML, quantities_prices[ddIndex + 1].innerHTML);
+        cart.push(product);
+        ddIndex += 2;
+    }
 
-  sessionStorage.setItem('cart', JSON.stringify(cart));
+    sessionStorage.setItem('cart', JSON.stringify(cart));
 }
 
 function removeItem(elementId) {
@@ -243,8 +243,6 @@ function removeItem(elementId) {
   $("#" + elementId).remove();
   calcTotal();
   if (document.getElementById("newTotal").innerHTML != "") {
-    console.log(document.getElementById("discount").innerHTML.slice(3, -1));
-    console.log(document.getElementById("totalPrice").innerHTML.slice(0, -1));
     document.getElementById("newTotal").innerHTML = " = " + (document.getElementById("totalPrice").innerHTML.slice(0, -1) - document.getElementById("discount").innerHTML.slice(3, -1)).toString() + "\u20ac"
   }
 }
@@ -291,37 +289,35 @@ function calcTotal() {
   document.getElementById("totalPrice").innerHTML = total.toFixed(2).toString() + "\u20ac"
 };
 
-window.onbeforeunload = function () {
-  passCart();
-};
-
 function random(min, max) {
   const num = Math.floor(Math.random() * (max - min + 1)) + min;
   return num;
 };
 
-function CurrentUser(coupon) {
-  this.coupon = coupon;
-}
-
 var checkoutClicked;
 
 $("#checkout").click(function () {
   checkoutClicked = localStorage.getItem("checkoutClicked");
+
   if (checkoutClicked == null) {
     checkoutClicked = "false";
   }
-  console.log(checkoutClicked);
+
   if (checkoutClicked == "false") {
     localStorage.setItem("checkoutClicked", "true");
-    console.log(checkoutClicked);
+
     let rewardPrc = random(5, 25);
     let oldTotal = document.getElementById("totalPrice").innerHTML.slice(0, -1);
     let reward = oldTotal * rewardPrc / 100;
     let newTotal = oldTotal - reward;
+
     $("#discount").text(" - " + reward + "\u20ac");
     $("#newTotal").text(" = " + newTotal + "\u20ac");
   }
 })
+
+window.onbeforeunload = function () {
+  passCart();
+};
 
 </script>
