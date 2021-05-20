@@ -97,12 +97,44 @@
          if (mysqli_num_rows($result)==0 and count($productRegistraionErrors)==0){
             $query_registerProduct = "INSERT INTO products values ('$username','$title','$price','$destination','$producer','$category','$city')";
             $result = mysqli_query($DBconnection, $query_registerProduct);
-            $path = 'http://127.0.0.1:8080/PI20_21_Gr1/login.php';
+            $path = 'http://127.0.0.1:8080/PI20_21_Gr1/Products/Products.php';
             header("Location: $path");
         }else if(mysqli_num_rows($result)>0){
             array_push($productRegistraionErrors, "A Product with this titile is already registered.");
         } 
 
+        $target_dir = "../uploads/";
+        $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+        $uploadOk = 1;
+        $fileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION)); 
+
+        if($fileType != "txt") {
+            array_push($productRegistraionErrors, "Fajlli duhet te jete txt.");
+        } 
+        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+            $file = fopen("../uploads/".$_FILES['fileToUpload']['name'],"r");
+            while(!feof($file))
+            {
+                list($username, $title, $price, $destination, $producer, $category, $city) = explode(",", fgets($file));
+                $query_userRegiteredProduct = "SELECT * FROM products WHERE username='$username' AND title='$title'";
+                $result = mysqli_query($DBconnection, $query_userRegiteredProduct);
+                $price = $price."€";
+                if (mysqli_num_rows($result) == 0){
+                    $query_registerProduct = "INSERT INTO products values ('$username','$title','$price','$destination','$producer','$category','$city')";
+                    $result = mysqli_query($DBconnection, $query_registerProduct);
+                }
+                else if(mysqli_num_rows($result)>0){
+                    array_push($productRegistraionErrors, "A Product with this titile is already registered.");
+                } 
+            }
+            $path = 'http://127.0.0.1:8080/PI20_21_Gr1/Products/Products.php';
+            header("Location: $path");
+
+            fclose($file);
+        }
+        else {
+            array_push($productRegistraionErrors, "File couldn't be moved to the desired destination");
+        }
         
     }
     if(isset($_POST['login']))
