@@ -22,7 +22,7 @@
         <section>
             <div id="icons">
                 <i class="fas fa-th"></i>
-                <a href="TableView.html" title="Table View" style="text-shadow: none;"><i class="fas fa-list"></i></a>
+                <a href="TableView.php" title="Table View" style="text-shadow: none;"><i class="fas fa-list"></i></a>
             </div>
             <div id="Art">
                 <div>

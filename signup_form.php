@@ -28,7 +28,7 @@
       <div class="form">
       <?php include("php_files/signUp.php"); ?>   
       <form class="signup-form" action="signup_form.php" method="post">
-      <?php include("php_files/displayTextual_errors.php"); ?>  
+      <?php include("php_files/displayTextual_errors.php");display_errors($errors); ?>   
           <input class="user-datas" id="username1" type="text" name="username" value="<?php echo $username ?>" placeholder="Username"  required>
           <input class="user-datas" id="email1" type="email" name="email" value="<?php echo $email_address ?>" placeholder="Email Address" required autocomplete="on">
           <input class="user-datas" id="password1" type="password" name="password"  placeholder="Password" required>

@@ -133,131 +133,127 @@
     <script>
         var product = JSON.parse(localStorage.getItem('prod'));
 
-        document.getElementById("title").innerHTML = product.title;
-        document.getElementById("price").innerHTML += product.price;
-        document.getElementById("big-img").src = product.image;
-        document.getElementById("producer").innerHTML += product.producer;
-        document.getElementById("category").innerHTML += product.category;
-        document.getElementById("city").innerHTML += product.city;
+document.getElementById("title").innerHTML = product.title;
+document.getElementById("price").innerHTML += product.price;
+document.getElementById("big-img").src = product.image;
+document.getElementById("producer").innerHTML += product.producer;
+document.getElementById("category").innerHTML += product.category;
+document.getElementById("city").innerHTML += product.city;
 
-        $('#right-div').width($('#buy-now').width() + 30);
+$('#right-div').width($('#buy-now').width() + 30);
 
-        function CartProd(title, quantity, price) {
-            this.title = title;
-            this.quantity = quantity;
-            this.price = price;
-        }
+function CartProd(title, quantity, price) {
+    this.title = title;
+    this.quantity = quantity;
+    this.price = price;
+}
 
-        var cart = JSON.parse(<?php echo $_SESSION["cart"]; ?>)
-        
-        $.each(cart, function (index, item) {
+var cart = JSON.parse(sessionStorage.getItem('cart'));
+
+$.each(cart, function (index, item) {
+    $("#cartList").append(
+        $("<button>")
+            .attr("id", "btn" + index)
+            .click(function () { removeItem("btn" + index) })
+            .append($("<i>").attr("class", "fas fa-times")),
+        $("<dt>").text(item.title),
+        $("<dd>").text(item.quantity).attr('class', 'inline'),
+        $("<dd>").text(item.price)
+    )
+});
+calcTotal();
+
+$("#to-cart")
+    .click(function () {
+        if (!exists(product.title)) {
+            let index = cart.length;
             $("#cartList").append(
                 $("<button>")
                     .attr("id", "btn" + index)
                     .click(function () { removeItem("btn" + index) })
                     .append($("<i>").attr("class", "fas fa-times")),
-                $("<dt>").text(item.title),
-                $("<dd>").text(item.quantity).attr('class', 'inline'),
-                $("<dd>").text(item.price)
+                $("<dt>").text(product.title),
+                $("<dd>").text('x1').attr('class', 'inline'),
+                $("<dd>").text(parseFloat(product.price.slice(0, -1)).toFixed(2) + '\u20ac')
             )
-        });
+        }
+        else {
+            calcQuantity(product.title, product.price);
+        }
         calcTotal();
+    })
 
-        $("#to-cart")
-            .click(function () {
-                if (!exists(product.title)) {
-                    let index = cart.length;
-                    $("#cartList").append(
-                        $("<button>")
-                            .attr("id", "btn" + index)
-                            .click(function () { removeItem("btn" + index) })
-                            .append($("<i>").attr("class", "fas fa-times")),
-                        $("<dt>").text(product.title),
-                        $("<dd>").text('x1').attr('class', 'inline'),
-                        $("<dd>").text(parseFloat(product.price.slice(0, -1)).toFixed(2) + '\u20ac')
-                    )
-                }
-                else {
-                    calcQuantity(product.title, product.price);
-                }
-                calcTotal();
-            })
+function passCart() {
+    const cart = []
 
-        function passCart() {
-            const cart = []
+    var cartList = document.getElementById("cartList");
+    var titles = cartList.getElementsByTagName("dt");
+    var quantities_prices = cartList.getElementsByTagName("dd");
 
-            var cartList = document.getElementById("cartList");
-            var titles = cartList.getElementsByTagName("dt");
-            var quantities_prices = cartList.getElementsByTagName("dd");
+    var ddIndex = 0;
+    for (let i = 0; i < titles.length; i++) {
+        var product = new CartProd(titles[i].innerHTML, quantities_prices[ddIndex].innerHTML, quantities_prices[ddIndex + 1].innerHTML);
+        cart.push(product);
+        ddIndex += 2;
+    }
 
-            var ddIndex = 0;
-            for (let i = 0; i < titles.length; i++) {
-                var product = new CartProd(titles[i].innerHTML, quantities_prices[ddIndex].innerHTML, quantities_prices[ddIndex + 1].innerHTML);
-                cart.push(product);
-                ddIndex += 2;
-            }
-            <?php 
-                if(!isset($_SESSION["cart"])) {
-                    $_SESSION["cart"] = echo "<script>JSON.stringify(cart)</script>";
-                }
-                $cart = $_SESSION["cart"];
-            ?>
+    sessionStorage.setItem('cart', JSON.stringify(cart));
+}
+
+function removeItem(elementId) {
+    var element = document.getElementById(elementId);
+    element.nextElementSibling.remove();
+    element.nextElementSibling.remove();
+    element.nextElementSibling.remove();
+    element.remove();
+    calcTotal();
+}
+
+function calcQuantity(title, price) {
+    var cartList = document.getElementById("cartList").getElementsByTagName("dt");
+
+    for (let i = 0; i < cartList.length; i++) {
+        if (cartList[i].innerHTML == title) {
+
+            let quantity = cartList[i].nextElementSibling;
+            quantity.innerHTML = 'x' + (parseInt(quantity.innerHTML.substring(1)) + 1).toString();
+
+            let newPrice = quantity.nextElementSibling;
+            newPrice.innerHTML = (parseFloat(price.slice(0, -1)) * parseInt(quantity.innerHTML.substring(1))).toFixed(2) + '\u20ac';
+
+            break;
         }
+    }
+};
 
-        function removeItem(elementId) {
-            var element = document.getElementById(elementId);
-            element.nextElementSibling.remove();
-            element.nextElementSibling.remove();
-            element.nextElementSibling.remove();
-            element.remove();
-            calcTotal();
+function exists(title) {
+    var cartList = document.getElementById("cartList").getElementsByTagName("dt");
+
+    for (let i = 0; i < cartList.length; i++) {
+        if (cartList[i].innerHTML == title) {
+            return true;
         }
+    }
 
-        function calcQuantity(title, price) {
-            var cartList = document.getElementById("cartList").getElementsByTagName("dt");
+    return false;
+};
 
-            for (let i = 0; i < cartList.length; i++) {
-                if (cartList[i].innerHTML == title) {
+function calcTotal() {
+    var cartList = document.getElementById("cartList").getElementsByTagName("dd");
+    var total = 0;
 
-                    let quantity = cartList[i].nextElementSibling;
-                    quantity.innerHTML = 'x' + (parseInt(quantity.innerHTML.substring(1)) + 1).toString();
+    for (let i = 0; i < cartList.length; i++) {
+        if (i % 2 == 1) {
+            total += parseFloat(cartList[i].innerHTML.slice(0, -1))
+        }
+    }
 
-                    let newPrice = quantity.nextElementSibling;
-                    newPrice.innerHTML = (parseFloat(price.slice(0, -1)) * parseInt(quantity.innerHTML.substring(1))).toFixed(2) + '\u20ac';
+    document.getElementById("totalPrice").innerHTML = total.toFixed(2).toString() + "\u20ac"
+};
 
-                    break;
-                }
-            }
-        };
-
-        function exists(title) {
-            var cartList = document.getElementById("cartList").getElementsByTagName("dt");
-
-            for (let i = 0; i < cartList.length; i++) {
-                if (cartList[i].innerHTML == title) {
-                    return true;
-                }
-            }
-
-            return false;
-        };
-
-        function calcTotal() {
-            var cartList = document.getElementById("cartList").getElementsByTagName("dd");
-            var total = 0;
-
-            for (let i = 0; i < cartList.length; i++) {
-                if (i % 2 == 1) {
-                    total += parseFloat(cartList[i].innerHTML.slice(0, -1))
-                }
-            }
-
-            document.getElementById("totalPrice").innerHTML = total.toFixed(2).toString() + "\u20ac"
-        };
-
-        window.onbeforeunload = function () {
-            passCart();
-        };
+window.onbeforeunload = function () {
+    passCart();
+};
 
         /* var queryString = location.search.substring(1);
         var data = queryString.split("|");
