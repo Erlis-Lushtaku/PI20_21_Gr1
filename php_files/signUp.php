@@ -59,24 +59,24 @@
         unset($_SESSION['username']);
         if(isset($_COOKIE["username"]) and isset($_COOKIE["password"])){
             echo "asfawfa";
-            setcookie("username",$_POST['username'],time()-1);
-            setcookie("password",$_POST['password'],time()-1);
+            setcookie("username",$_COOKIE["username"],time()-1);
+            setcookie("password",$_COOKIE["password"],time()-1);
         }
-         $path = 'http://127.0.0.1:8080/PI20_21_Gr1/login.php';
+        $path = 'http://127.0.0.1:8080/PI20_21_Gr1/login.php';
          header("Location: $path");                    // duhemi me caktu cka me bo nese regjistrohet me sukses userri 
 
     }
     if(isset($_POST['registerBtn'])){
         $title = mysqli_real_escape_string($DBconnection,$_POST['title']);
 
-        $price = mysqli_real_escape_string($DBconnection,$_POST['price']);
+        $price = mysqli_real_escape_string($DBconnection,$_POST['price'])."€";
         $producer = mysqli_real_escape_string($DBconnection,$_POST['producer']);
         $category = mysqli_real_escape_string($DBconnection,$_POST['categorySelect']);
         $city = mysqli_real_escape_string($DBconnection,$_POST['city']);
         $destination = "../images/".$_FILES['image']['name'];
-        // if (!($_FILES['image']['type'])=='image/png') || !($_FILES['image']['type'])=='image/jpeg') || !($_FILES['image']['type']=='image/gif') || !($_FILES['image']['type'])=='image/raw')) { 
-        //     array_push($productRegistraionErrors, "Image couldn't be moved to the desired destination");
-        // } 
+        if ( strcmp( $_FILES['image']['type'] , "image/png" )!=0 and strcmp( $_FILES['image']['type'] , "image/jpeg" )!=0  and strcmp( $_FILES['image']['type'] , "image/gif" )!=0  and strcmp( $_FILES['image']['type'] , "image/raw" )!=0  ) { 
+            array_push($productRegistraionErrors, "Fajlli duhet te jete foto png ose jpeg ose gif ose raw.");
+        } 
         if (!move_uploaded_file($_FILES['image']['tmp_name'], $destination)) { 
             array_push($productRegistraionErrors, "Image couldn't be moved to the desired destination");
         } 
@@ -84,9 +84,8 @@
         
         if (empty($title)) { array_push($productRegistraionErrors, "Title is required"); }
         if (empty($price)) { array_push($productRegistraionErrors, "Price is required"); }
-        if (empty($image)) { array_push($productRegistraionErrors, "Image is required"); }
         if (empty($producer)) { array_push($productRegistraionErrors, "Producer is required"); }
-        if (empty($category)) { array_push($productRegistraionErrors, "Category is required"); }
+        if (empty($category)) { array_push($productRegistraionErrors, "Category must be ART,CULTURE OR FOODS."); }
         if (empty($city)) { array_push($productRegistraionErrors, "City is required"); }
 
         if (isset($_SESSION['username'])){
@@ -95,20 +94,19 @@
 
         $query_userRegiteredProduct = "SELECT * FROM products WHERE username='$username' AND title='$title'";
         $result = mysqli_query($DBconnection, $query_userRegiteredProduct);
-         if (mysqli_num_rows($result)==1 and count($productRegistraionErrors)){
-            array_push($productRegistraionErrors, "Product is already registered.");
-        }else {
+         if (mysqli_num_rows($result)==0 and count($productRegistraionErrors)==0){
             $query_registerProduct = "INSERT INTO products values ('$username','$title','$price','$image','$producer','$category','$city')";
             $result = mysqli_query($DBconnection, $query_registerProduct);
             $path = 'http://127.0.0.1:8080/PI20_21_Gr1/login.php';
-            header("Location: $path"); 
+            header("Location: $path");
+        }else if(mysqli_num_rows($result)>0){
+            array_push($productRegistraionErrors, "A Product with this titile is already registered.");
         } 
 
         
     }
     if(isset($_POST['login']))
     {
-   
         $username = mysqli_real_escape_string($DBconnection,$_POST['username']);
         $password = mysqli_real_escape_string($DBconnection,$_POST['password']);
 

@@ -28,7 +28,7 @@
     <div class="form">
       <?php include("php_files/signUp.php"); ?>   
       <form class="login-form" action="login.php" method="post">
-      <?php include("php_files/displayTextual_errors.php"); ?>  
+      <?php include("php_files/displayTextual_errors.php");display_errors($errors); ?>  
         <input class="user-datas" id="username" type="text" name="username" value="<?php if(isset($_COOKIE["username"])){echo $_COOKIE["username"];} else{echo $username;} ?>" placeholder="Username" required autofocus>
         <input class="user-datas" id="password" type="password" name="password" value="<?php if(isset($_COOKIE["password"])) { echo $_COOKIE["password"]; } ?>"  placeholder="Password"  required>
         <div class="log-in1">
