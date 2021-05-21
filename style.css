@@ -1,0 +1,207 @@
+* {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "segoe ui", roboto, oxygen, ubuntu, cantarell, "fira sans", "droid sans", "helvetica neue", Arial, sans-serif;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body {
+  background-color: #435165;
+  margin: 0;
+}.header {
+  background-color: #2f3947;
+  box-shadow: 1px 1px 4px 0 rgba(0,0,0,.1);
+  position: fixed;
+  width: 100%;
+  color: gray;
+  z-index: 3;
+}
+.navtop .navmenu{
+    background-color: aquamarine;
+}
+
+.header ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+  background-color: #fff;
+}
+.header li a i{
+  margin: 5px;
+}
+
+.header li a {
+  display: block;
+  padding: 20px 20px;
+  color: #c1c4c8;
+  text-decoration: none;
+  background-color: #2f3947;
+  font-family: 'Roboto', sans-serif;
+}
+
+.header li a:hover,
+.header .menu-btn:hover {
+  color: #eaebed;
+}
+
+.header .logo {
+  display: block;
+  color: white;
+  float: left;
+  font-size: 25px;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+
+/* menu */
+
+.header .menu {
+  clear: both;
+  max-height: 0;
+  transition: max-height .2s ease-out;
+}
+
+/* menu icon */
+
+.header .menu-icon {
+  cursor: pointer;
+  display: inline-block;
+  float: right;
+  padding: 28px 20px;
+  position: relative;
+  user-select: none;
+  color: #c1c4c8;
+}
+
+.header .menu-icon .navicon {
+  background: #c1c4c8;
+  display: block;
+  height: 2px;
+  position: relative;
+  transition: background .2s ease-out;
+  width: 18px;
+}
+
+.header .menu-icon .navicon:before,
+.header .menu-icon .navicon:after {
+  background: #333;
+  content: '';
+  display: block;
+  height: 100%;
+  position: absolute;
+  transition: all .2s ease-out;
+  width: 100%;
+}
+
+.header .menu-icon .navicon:before {
+  top: 5px;
+}
+
+.header .menu-icon .navicon:after {
+  top: -5px;
+}
+
+/* menu btn */
+
+.header .menu-btn {
+  display: none;
+}
+
+.header .menu-btn:checked ~ .menu {
+  max-height: unset;
+}
+
+.header .menu-btn:checked ~ .menu-icon .navicon {
+  background: transparent;
+}
+
+.header .menu-btn:checked ~ .menu-icon .navicon:before {
+  transform: rotate(-45deg);
+}
+
+.header .menu-btn:checked ~ .menu-icon .navicon:after {
+  transform: rotate(45deg);
+}
+
+.header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:before,
+.header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
+  top: 0;
+}
+
+/* 48em = 768px */
+
+@media (min-width: 922px) {
+  .header li {
+    float: left;
+  }
+  .header li a {
+    padding: 20px 20px;
+  }
+  .header .menu {
+    clear: none;
+    float: right;
+    max-height: none;
+    background-color: #2f3947;
+  }
+  .header .menu-icon {
+    display: none;
+  }
+
+}
+
+
+.content .content-1 .table{
+ 
+  width: 100%;
+  
+}
+.content{
+  padding: 50px;
+}
+.content .table1{
+width: 100%;
+}
+
+body.loggedin {
+background-color: #f3f4f7;
+}
+
+.content {
+width: 100%;
+margin: 0 auto;
+}
+.content .close a{
+text-decoration: none;
+}
+.content h2 {
+margin: 0;
+padding: 25px 0;
+font-size: 22px;
+border-bottom: 1px solid #e0e0e3;
+color: #4a536e;
+}
+.content > p, .content > div {
+box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+margin: 25px 0;
+padding: 25px;
+background-color: #fff;
+}
+
+.content > p table td, .content > div table td {
+padding: 5px;
+}
+.content > p table td:first-child, .content > div table td:first-child {
+font-weight: bold;
+color: #4a536e;
+padding-right: 15px;
+}
+.content > div p {
+padding: 5px;
+margin: 0 0 10px 0;
+} 
+.content .removeposts{
+  margin: 15px 0;
+ 
+}
+

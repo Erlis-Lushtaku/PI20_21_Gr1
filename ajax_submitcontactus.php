@@ -1,18 +1,78 @@
 <?php 
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-require 'vendor/autoload.php';
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
+}
+function email_validation($email){
+return (!preg_match("/^[^ ]+@[^ ]+\.[a-z]{2,3}$/",$email))? FALSE: TRUE;
+}
 
-$mail = new PHPMailer(true);
-$mail2=new PHPMailer(true);
+function name_validation($name){
+return (!preg_match("/^([a-zA-Z]){2,30}$/",$name))? FALSE: TRUE;
+}
 
-$name=htmlspecialchars($_POST['name']);
-$email=htmlspecialchars($_POST['email']);
-$company=htmlspecialchars($_POST['company']);
-$budget=htmlspecialchars($_POST['number']);
+function company_validation($company){
+return (!preg_match("/^([a-zA-Z ]){2,30}$/",$company))?FALSE:TRUE;
+}
 
-$cli_inv=htmlspecialchars($_POST['person']);
+function budget_validation($budget){
+  return (!preg_match("/^[1-9]+\.?[0-9]*$/",$budget))? FALSE:TRUE;
+  } 
+$errarray=array();
+
+  if (empty($_POST["name"])) {
+    $nameErr = "Name is required";
+    array_push($errarray,$nameErr);
+  } else {
+    $name = test_input($_POST["name"]);
+    if(!name_validation($name)){
+      $nameErr = "Name is required";
+      array_push($errarray,$nameErr);
+    }
+  }
+
+  if (empty($_POST["email"])) {
+    $emailErr = "Email is required";
+    array_push($errarray,$emailErr);
+  } 
+  else {
+    $email = test_input($_POST["email"]);
+    if(!email_validation($email)){
+      $emailerr="Email is required";
+      array_push($errarray,$emailerr);
+  }
+  }
+
+    if (empty($_POST["company"])) {
+      $companyErr = "Company is required";
+      array_push($errarray,$companyErr);
+    } else {
+      $company = test_input($_POST["company"]);
+      if(!company_validation($company)){
+        $companyErr = "Company is required";
+        array_push($errarray,$companyErr);
+      }
+    }
+  
+    if (empty($_POST["number"])) {
+      $budgetErr = "budget is required";
+      array_push($errarray,$budgetErr);
+    } else {
+      $budget = test_input($_POST["number"]);
+      if(!budget_validation($budget)){
+        $budgetErr = "budget is required";
+        array_push($errarray,$budgetErr);
+      }
+    }
+    
+if(!empty($errarray)){
+ //Mos bo kurgjo nese ka elemente n array 
+}
+else{
+$cli_inv=test_input($_POST['person']);
 $subject="Lloji:".$cli_inv;
 
 $message="<html><body>";
@@ -21,44 +81,21 @@ $message.="<p><b>Email:</b>".$email."</p>";
 $message.="<p><b>Company:</b>".$company."</p>";
 $message.="<p><b>Budget:</b>".$budget."</p>";
 
-if(htmlspecialchars(trim($_POST['details']))!=""){
-  $message.="<p><b>Pershkrimi per detajet e projektit:</b>".htmlspecialchars($_POST['details'])."</p>";
+if(test_input(trim($_POST['details']))!=""){
+  $message.="<p><b>Pershkrimi per detajet e projektit:</b>".test_input($_POST['details'])."</p>";
 }
 else{
   $message.="<p><b>Pershkrimi per detajet e projektit:</b>nuk ka</p>";
 }
-if(htmlspecialchars(trim($_POST['categories-choice']))!=""){
-  $message.="<p><b>Cfare po kerkoni:</b>".htmlspecialchars($_POST['categories-choice'])."</p>";
+if(test_input(trim($_POST['categories-choice']))!=""){
+  $message.="<p><b>Cfare po kerkoni:</b>".test_input($_POST['categories-choice'])."</p>";
   }
   else{
     $message.="<p><b>Cfare po kerkoni:</b>e pacaktuar</p>";
   }
 $message.="</body></html>";
-
-try {
-  //$mail->SMTPDebug = 2;                                       
-  $mail->isSMTP();                                            
-  $mail->Host       = 'smtp.gmail.com';                    
-  $mail->SMTPAuth   = true;                             
-  $mail->Username   = 'donat.sinani@student.uni-pr.edu';                 
-  $mail->Password   = '1232400192';                        
-  $mail->SMTPSecure = 'tls';                              
-  $mail->Port       = 587;  
-  $mail->setFrom('donat.sinani@student.uni-pr.edu');         
-  $mail->addAddress('donatsinani70@gmail.com');
-     
-  $mail->isHTML(true);                                  
-  $mail->Subject = $subject;
-  $mail->Body    = $message;
-  $mail->AltBody = 'Body in plain text for non-HTML mail clients';
-  $mail->send();
-  $variabla=true;
-  echo "<script>document.getElementById('persend').innerHTML='Message sent!'</script>";
-} catch (Exception $e) {
-  echo "<script>document.getElementById('persend').innerHTML='Message could not be sent!'</script>";
-//  echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-$variabla=false;
-}
+include('emailfunc.php');
+sendmail('BPAContactBusiness@gmail.com',$message,$subject,'BPAContactBusiness@gmail.com','bpa1234.');
 
 $subject2="Dear visitor";
 $body2="<html><body>
@@ -72,20 +109,6 @@ Prishtinë</p>
 <p><b>Email:</b>contactbusiness@gmail.com
 </p>
 </body></html>";
-
-$mail2->isSMTP();                                            
-  $mail2->Host       = 'smtp.gmail.com';                    
-  $mail2->SMTPAuth   = true;                             
-  $mail2->Username   = 'donat.sinani@student.uni-pr.edu';                 
-  $mail2->Password   = '1232400192';                        
-  $mail2->SMTPSecure = 'tls';                              
-  $mail2->Port       = 587;  
-  $mail2->setFrom('donat.sinani@student.uni-pr.edu');         
-  $mail2->addAddress($email);
-  $mail2->isHTML(true);                                  
-  $mail2->Subject = $subject2;
-  $mail2->Body    = $body2;
-  $mail2->AltBody = 'Body in plain text for non-HTML mail clients';
-  $mail2->send();
-
+sendmail($email,$body2,$subject2,'BPAContactBusiness@gmail.com','bpa1234.');
+}
 ?>
