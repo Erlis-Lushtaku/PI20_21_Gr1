@@ -28,8 +28,8 @@ if (!isset($_SESSION['loggedin'])) {
 		<ul class="menu">
 
 			<li> <a href="home.php"><i class="fas fa-home"></i>Home</a></li>
-			<li> <a href="./addNewAdmin.php"><i class="fas fa-user-circle"></i>Admins</a> </li>
-			<li> <a href="#"><i class="fas fa-image"></i>#</a> </li>
+			<li> <a href="./index.php"><i class="fas fa-user-circle"></i>Admins</a> </li>
+			<li> <a href="./promotions/index.php"><i class="fas fa-image"></i>Promotions</a> </li>
 			<li> <a href="#"><i class="fas fa-newspaper"></i>#</a> </li>
 			<li> <a href="#"><i class="fas fa-user-circle"></i>#</a> </li>
 			<li> <a href="logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a> </li>
@@ -39,8 +39,20 @@ if (!isset($_SESSION['loggedin'])) {
 
 		<h2>Home Page</h2>
 		<button type="button" class="close" data-dismiss="alert">
-			<a href="../index.html"><i class="fas fa-home"></i>Go in Website</a>
+			<a href="../index.php"><i class="fas fa-home"></i>Go in Website</a>
+			
 		</button>
+		<button type="button" class="close" data-dismiss="alert">
+		<a href="forms/loans/index.php"><i class="fas fa-newspaper"></i>Loans-Form</a>
+		</button>
+		<button type="button" class="close" data-dismiss="alert">
+			<a href="forms/investment/index.php"><i class="fas fa-newspaper"></i>Investment-Form</a>
+		</button>
+		<button type="button" class="close" data-dismiss="alert">
+			<a href="forms/grants/index.php"><i class="fas fa-newspaper"></i>Grants-Form</a>
+		</button>
+			
+			
 		
 
 		<div class="content-1">
@@ -68,4 +80,3 @@ if (!isset($_SESSION['loggedin'])) {
 </body>
 
 </html>
-    

@@ -29,41 +29,42 @@
         
         <div class="teksti1"><span>C</span><span>ategories</span></div>
        
-        <div class="container1">
-            <div class="box1">
-                <div class="img1">
-                    <a href="#"><img src="images/art.jpg" id="fotoR"></a>
-                </div>
-                <div class="content1">
-                    <div>
-                        <a href="#" style="text-decoration: none;"><h2>ART</h2></a>
-                    </div>
-                </div>
-            </div>
-            <div class="box1">
-                <div class="img1">
-                    <a href="#"><img src="images/textil.jpg" id="fotoR"></a>
-                </div>
-                <div class="content1">
-                    <div>
-                        <a href="#" style="text-decoration: none;"><h2>CULTURE</h2></a>
-
-                    </div>
-                </div>
-            </div>
-            <div class="box1" id="afterf">
-                <div class="img1">
-                    <a href="#"></a><img src="images/food.jpg" id="fotoR"></a>
-                </div>
-                <div class="content1">
-                    <div>
-                        <a href="#" style="text-decoration: none;"><h2>FOODS</h2></a>
-                    </div>
-                </div>
+        <div class="container1 box1">
+          
+            <div class="img1">
+                <?php
+                require_once('./admins/db.php');
+                $result = $conn->prepare("SELECT * FROM gallery ORDER BY tbl_image_id ASC");
+                $result->execute();
+                for ($i = 0; $row = $result->fetch(); $i++) {
+                    $id = $row['tbl_image_id'];
+                ?>
+                    <a href="./admins/image/gallery/<?php echo $row['image_location']; ?>" id="fotoR">
+                    <?php if ($row['image_location'] != "") : ?>
+                            <img src="./admins/image/gallery/<?php echo $row['image_location']; ?>" alt="<?php echo $row['Photos_name']; ?>">
+                        <?php else : ?>
+                            <img src="./admins/image/gallery/default.png">
+                        <?php endif; ?>
+                    </a>
+                <?php } ?>
+          
+                
             </div>
             
-        </div>
+                    
+                        
+
+            
+        </div>  
     </section>
 </body>
-
+<script>
+    $(".section2").magnificPopup({
+        delegate: 'a',
+        type: 'image',
+        gallery: {
+            enabled: false
+        }
+    });
+</script>
 </html>

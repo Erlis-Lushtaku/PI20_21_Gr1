@@ -14,9 +14,9 @@
         <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
         <ul class="menu">
 
-            <li> <a href="#"><i class="fas fa-home"></i>Home</a></li>
-            <li> <a href="/addNewAdmin.php"><i class="fas fa-user-circle"></i>Admins</a> </li>
-            <li> <a href="#"><i class="fas fa-image"></i>#</a> </li>
+            <li> <a href="./home.php"><i class="fas fa-home"></i>Home</a></li>
+            <li> <a href="index.php"><i class="fas fa-user-circle"></i>Admins</a> </li>
+            <li> <a href="./promotions/index.php"><i class="fas fa-image"></i>Promotions</a> </li>
             <li> <a href="#"><i class="fas fa-newspaper"></i>#</a> </li>
             <li> <a href="#"><i class="fas fa-user-circle"></i>#</a> </li>
             <li> <a href="logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a> </li>

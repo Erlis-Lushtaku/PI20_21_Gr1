@@ -1,7 +1,7 @@
 <?php
     $host = '127.0.0.1';
     $db_username = 'root';
-    $db_password = 'root';
+    $db_password = '1249348089';
     $dbname = 'users';
     $DBconnection = mysqli_connect($host, $db_username, $db_password, $dbname);
 
@@ -10,130 +10,22 @@
         ${$category."_query"} = "SELECT * FROM products WHERE category='$category'";
         $result = mysqli_query($DBconnection, ${$category."_query"});
         ${$category."_products"} = $result->fetch_all(MYSQLI_ASSOC);
-    }
-
+    }    
+    
 ?>
-
+<script type="text/javascript" src="DisplayProducts.js"></script>
 <script>
 
 var artProducts = <?php echo json_encode($art_products) ?>;
 var cultureProducts = <?php echo json_encode($culture_products) ?>;
 var foodProducts = <?php echo json_encode($foods_products) ?>;
+var ids = ["#art-container","#food-container","#textile-container"];
+var Products = [artProducts,cultureProducts,cultureProducts];
+display_Products(Products,ids);
 
-$.each(artProducts, function (index, item) {
-    $("#art-container").append(
-        $("<tr>").append(
-            $("<a>")
-                .click(function () {
-                    localStorage.setItem('prod', JSON.stringify(item));
-                })
-                .attr("href", "SingleProduct.php")
-                .append(
-                    $("<td>").text(item.title)),
-            $("<td>").text(item.price),
-            $("<td>").text(item.producer),
-            $("<td>").text(item.category),
-            $("<td>").text(item.city),
-            $("<button>", {
-                text: "+",
-                click: function () {
-                    if (!exists(item.title)) {
-                        $("#cartList").append(
-                            $("<button>")
-                                .attr("id", "btn" + index)
-                                .click(function () { removeItem("btn" + index) })
-                                .append($("<i>").attr("class", "fas fa-times")),
-                            $("<dt>").text(item.title),
-                            $("<dd>").text('x1').attr('class', 'inline'),
-                            $("<dd>").text(parseFloat(item.price.slice(0, -1)).toFixed(2) + '$')
-                        )
-                    }
-                    else {
-                        calcQuantity(item.title, item.price)
-                    }
-                    calcTotal()
-                }
-            })
-        )
-    )
-});
+</script>
 
-$.each(cultureProducts, function (index, item) {
-    $("#food-container").append(
-        $("<tr>").append(
-            $("<a>")
-                .click(function () {
-                    localStorage.setItem('prod', JSON.stringify(item));
-                })
-                .attr("href", "SingleProduct.php")
-                .append(
-                    $("<td>").text(item.title)),
-            $("<td>").text(item.price),
-            $("<td>").text(item.producer),
-            $("<td>").text(item.category),
-            $("<td>").text(item.city),
-            $("<button>", {
-                text: "+",
-                click: function () {
-                    if (!exists(item.title)) {
-                        $("#cartList").append(
-                            $("<button>")
-                                .attr("id", "btn" + index)
-                                .click(function () { removeItem("btn" + index) })
-                                .append($("<i>").attr("class", "fas fa-times")),
-                            $("<dt>").text(item.title),
-                            $("<dd>").text('x1').attr('class', 'inline'),
-                            $("<dd>").text(parseFloat(item.price.slice(0, -1)).toFixed(2) + '$')
-                        )
-                    }
-                    else {
-                        calcQuantity(item.title, item.price)
-                    }
-                    calcTotal()
-                }
-            })
-        )
-    )
-});
-
-$.each(foodProducts, function (index, item) {
-    $("#textile-container").append(
-        $("<tr>").append(
-            $("<a>")
-                .click(function () {
-                    localStorage.setItem('prod', JSON.stringify(item));
-                })
-                .attr("href", "SingleProduct.php")
-                .append(
-                    $("<td>").text(item.title)),
-            $("<td>").text(item.price),
-            $("<td>").text(item.producer),
-            $("<td>").text(item.category),
-            $("<td>").text(item.city),
-            $("<button>", {
-                text: "+",
-                click: function () {
-                    if (!exists(item.title)) {
-                        $("#cartList").append(
-                            $("<button>")
-                                .attr("id", "btn" + index)
-                                .click(function () { removeItem("btn" + index) })
-                                .append($("<i>").attr("class", "fas fa-times")),
-                            $("<dt>").text(item.title),
-                            $("<dd>").text('x1').attr('class', 'inline'),
-                            $("<dd>").text(parseFloat(item.price.slice(0, -1)).toFixed(2) + '$')
-                        )
-                    }
-                    else {
-                        calcQuantity(item.title, item.price)
-                    }
-                    calcTotal()
-                }
-            })
-        )
-    )
-});
-
+<script>
 function CartProd(title, quantity, price) {
     Product.call(this, title, price);
     this.quantity = quantity;
