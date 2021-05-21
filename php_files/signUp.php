@@ -111,22 +111,32 @@
         if($fileType != "txt") {
             array_push($productRegistraionErrors, "Fajlli duhet te jete txt.");
         } 
-        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+
+        $counter = 0;
+        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) 
+        {
             $file = fopen("../uploads/".$_FILES['fileToUpload']['name'],"r");
+
             while(!feof($file))
             {
                 list($username, $title, $price, $destination, $producer, $category, $city) = explode(",", fgets($file));
                 $query_userRegiteredProduct = "SELECT * FROM products WHERE username='$username' AND title='$title'";
                 $result = mysqli_query($DBconnection, $query_userRegiteredProduct);
+
                 $price = $price."€";
-                if (mysqli_num_rows($result) == 0){
+                $destination = "../images/".$destination;
+
+                if (mysqli_num_rows($result) == 0) {
                     $query_registerProduct = "INSERT INTO products values ('$username','$title','$price','$destination','$producer','$category','$city')";
                     $result = mysqli_query($DBconnection, $query_registerProduct);
                 }
                 else if(mysqli_num_rows($result)>0){
                     array_push($productRegistraionErrors, "A Product with this titile is already registered.");
                 } 
+
+                $counter++;
             }
+
             $path = 'http://127.0.0.1:8080/PI20_21_Gr1/Products/Products.php';
             header("Location: $path");
 
@@ -135,6 +145,34 @@
         else {
             array_push($productRegistraionErrors, "File couldn't be moved to the desired destination");
         }
+
+        $files = array_filter($_FILES['images']['name']); //Use something similar before processing files.
+        // Count the number of uploaded files in array
+        $total_count = count($_FILES['images']['name']);
+
+        if($total_count != $counter) {
+            array_push($productRegistraionErrors, "Number of products should be equal to number of images uploaded!");
+        }
+        else {
+            // Loop through every file
+            for( $i=0 ; $i < $total_count ; $i++ ) {
+            //The temp file path is obtained
+            $tmpFilePath = $_FILES['images']['tmp_name'][$i];
+            //A file path needs to be present
+            if ($tmpFilePath != "") {
+                //Setup our new file path
+                $newFilePath = "../images/".$_FILES['images']['name'][$i];
+                //File is uploaded to temp dir
+                if ( strcmp( $_FILES['images']['type'][$i] , "image/png" )!=0 and strcmp( $_FILES['images']['type'][$i] , "image/jpeg" )!=0  and strcmp( $_FILES['images']['type'][$i] , "image/gif" )!=0  and strcmp( $_FILES['images']['type'][$i] , "image/raw" )!=0  ) { 
+                    array_push($productRegistraionErrors, "Fajlli duhet te jete foto png ose jpeg ose gif ose raw.");
+                } 
+                if(!move_uploaded_file($tmpFilePath, $newFilePath)) {
+                    array_push($productRegistraionErrors, "Image couldn't be moved to the desired destination");
+                }
+            }
+        }
+        
+}
         
     }
     if(isset($_POST['login']))

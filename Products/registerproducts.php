@@ -50,10 +50,12 @@ if (!isset($_SESSION['username'])) {
             <p style="color:#201c1c">Save this information for next time</p>
             </br>
 
-            <h4>or add multiple products from file:</h4>
+            <h4>Or add multiple products from file:</h4>
             <input type="file" name="fileToUpload" id="fileToUpload" style="display: block; margin-right: auto; margin-left: auto;">
-            <button type="submit" class="btn cancel" name="registerBtn">Register Product</button>
+            <h5>Upload images of all products</h5>
+            <input type="file" name="images[]" multiple="multiple" style="display: block; margin-right: auto; margin-left: auto; padding:10px"/>
 
+            <button type="submit" class="btn cancel" name="registerBtn">Register Product</button>
             <button type="submit" class="btn" name="logout">Logout</button>
         </form>
     </div>
