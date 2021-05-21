@@ -6,6 +6,7 @@ function test_input($data) {
   $data = htmlspecialchars($data);
   return $data;
 }
+
 function email_validation($email){
 return (!preg_match("/^[^ ]+@[^ ]+\.[a-z]{2,3}$/",$email))? FALSE: TRUE;
 }
