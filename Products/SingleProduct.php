@@ -13,6 +13,12 @@
 </head>
 
 <body onload="changeBackground()">
+<?php 
+    if(!isset($_SESSION)) 
+    { 
+        session_start(); 
+    }
+?>
     <section class="section1 ">
         <header>
             <div class="containeer">
@@ -131,8 +137,57 @@
     </div>
 
     <script>
-        var product = JSON.parse(localStorage.getItem('prod'));
+    var product = JSON.parse(localStorage.getItem('prod'));
 
+    // document.cookie = "title = " + product.title;
+
+    // var userdata = {'title': product.title};
+    // $(document).ready(function() {
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "SingleProduct.php",
+    //         data: userdata, 
+    //         success: function(data){
+    //             console.log(data);
+    //         }
+    //     });
+    // });
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", "SingleProduct_real_php.php?title=" + product.title, true);
+    xmlhttp.send();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        console.log(this.responseText);
+        if (this.responseText == "true") {
+            var myDiv = document.getElementById("right-div");
+            var button = document.createElement("BUTTON");
+            button.innerHTML = "DELETE";
+            button.style.position = "absolute";
+            button.style.bottom = "145px";
+            button.style.backgroundColor = "rgb(193, 31, 31)";
+            button.onmouseover = function(){
+                button.style.backgroundColor = "rgb(155, 25, 25)";
+                button.style.transition = "1s";
+            };
+            button.onmouseout = function(){
+                button.style.backgroundColor = "rgb(193, 31, 31)";
+                button.style.transition = "1s";
+            };
+
+            button.onclick = function() {
+                xmlhttp = new XMLHttpRequest();
+                xmlhttp.open("GET", "deleteRequest.php?title=" + product.title, true);
+                xmlhttp.send();
+                window.location.href = 'http://127.0.0.1:8080/PI20_21_Gr1/Products/Products.php';
+            };
+            button.classList.add("delete-btn");
+            myDiv.appendChild(button);
+        }
+        
+      }
+    };
+    
+        
 document.getElementById("title").innerHTML = product.title;
 document.getElementById("price").innerHTML += product.price;
 document.getElementById("big-img").src = product.image;

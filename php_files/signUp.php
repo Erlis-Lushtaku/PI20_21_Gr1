@@ -94,7 +94,7 @@
 
         $query_userRegiteredProduct = "SELECT * FROM products WHERE username='$username' AND title='$title'";
         $result = mysqli_query($DBconnection, $query_userRegiteredProduct);
-         if (mysqli_num_rows($result)==0 and count($productRegistraionErrors)==0){
+        if (mysqli_num_rows($result)==0 and count($productRegistraionErrors)==0){
             $query_registerProduct = "INSERT INTO products values ('$username','$title','$price','$destination','$producer','$category','$city')";
             $result = mysqli_query($DBconnection, $query_registerProduct);
             $path = 'http://127.0.0.1:8080/PI20_21_Gr1/Products/Products.php';

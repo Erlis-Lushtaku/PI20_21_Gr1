@@ -95,6 +95,12 @@
     margin-bottom: auto;
 }
 
+.delete-btn {
+    position: absolute;
+    bottom: 145px;
+    background-color: rgb(175, 11, 11);
+}
+
 #to-cart {
     position: absolute;
     bottom: 80px;
