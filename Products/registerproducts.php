@@ -26,26 +26,26 @@ if (!isset($_SESSION['username'])) {
 
 <div id="" style=" z-index: 6000;">
     <div class="form-popup" id="myForm" style="border-radius: 15px;">
-    <?php require("../php_files/signUp.php"); ?>
-        <form enctype="multipart/form-data"action="registerproducts.php" class="form-container" method="post">
+    <?php require("../php_files/server.php"); ?>
+        <form enctype="multipart/form-data" action="registerproducts.php" class="form-container" method="post">
         <?php  if (isset($_SESSION['username'])) : ?>
     	<h3 >Welcome <strong><?php echo $_SESSION['username']; ?></strong></h3>
         <?php endif ?>
         <?php include("../php_files/displayTextual_errors.php"); display_errors($productRegistraionErrors);?>  
 
             <h4 style="padding-top:20px;padding-bottom:0px;">Product information</h4>
-            <input type="text" id="title" placeholder="Title" name="title" style="padding-left:15px;">
-            <input type="text" id="price" placeholder="Price" name="price">
+            <input type="text" id="title" placeholder="Title" name="title" value="<?php if(isset($_SESSION['title'])){echo $_SESSION['title'];unset($_SESSION['title']);}?>" style="padding-left:15px;">
+            <input type="text" id="price" placeholder="Price" name="price" value="<?php if(isset($_SESSION['price'])){echo $_SESSION['price'];unset($_SESSION['title']);}?>">
             <p>Upload an image of the product</p>
             <input type="file"   name="image" />
-            <input type="text" id="producer" placeholder="Producer" name="producer">
+            <input type="text" id="producer" placeholder="Producer" name="producer" value="<?php if(isset($_SESSION['producer'])){echo $_SESSION['producer'];unset($_SESSION['title']);}?>">
             <select id="mySelect" name="categorySelect" >
                 <option value="">Select the category of the product...</option>
                 <option value="ART">ART</option>
                 <option value="CULTURE">CULTURE</option>
                 <option value="FOODS">FOODS</option>
             </select>
-            <input type="text" id="city" name="city" placeholder="City">
+            <input type="text" id="city" name="city" placeholder="City" value="<?php if(isset($_SESSION['city'])){echo $_SESSION['city'];unset($_SESSION['title']);}?>">
             <input type="checkbox">
             <p style="color:#201c1c">Save this information for next time</p>
             </br>

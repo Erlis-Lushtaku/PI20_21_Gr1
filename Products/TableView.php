@@ -8,7 +8,35 @@
     <link rel="stylesheet" href="navigation.css">
     <title>E-Shopping</title>
     <link rel="shortcut icon" type="image/png" href="../images/3d.png">
+    <script type="text/javascript" src="DisplayProducts.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script >
+function displayColumnNames(divId){
+    $(divId).append(
+                $("<tr>").append(
+                    $("<th>").text("Title"),$("<th>").text("Price"),$("<th>").text("Producer"),$("<th>").text("Category"),$("<th>").text("City"),$("<th>").text("")
+                    )
+                )
+}
+function selectProductsWithAJAX(str) {
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+            var ids = ["#art-container","#food-container","#textile-container"];
+            var products = JSON.parse(this.responseText);
+            for(i=0;i<3;i++){  
+                $(ids[i]).empty();
+                displayColumnNames(ids[i]);
+            }
+            display_Products(products,ids);            
+      }
+    };
+    xmlhttp.open("GET", "ajaxRequest.php?titleChar=" + str, true);
+    xmlhttp.send();
     
+  }
+</script>
 
     <script type="text/javascript" src="jquery-3.5.1.js"></script>
     <script src="https://kit.fontawesome.com/096e4d997b.js" crossorigin="anonymous"></script>
@@ -25,7 +53,9 @@
 
 <section id="seksioni-produktet" style="position: relative; z-index: 4000;">
     <section>
+
         <div id="icons">
+        <input type="text" id="fname" name="fname" placeholder="Search your product." style="float:left;" onkeyup="selectProductsWithAJAX(this.value)">
             <a href="Products.php" title="Gallery View" style="text-shadow: none;"><i class="fas fa-th"></i></a>
             <i class="fas fa-list"></i>
         </div>
@@ -90,7 +120,7 @@
         </div>
     </div>
 </section>
-<?php require('TableView_real_php.php'); ?> 
+ 
 
 <div id="bigDiv" style="z-index: 6000;">
     <div class="form-popup" id="myForm" style="border-radius: 15px;">
@@ -133,3 +163,4 @@
 </body>
 
 </html>
+<?php require('TableView_real_php.php'); ?>
