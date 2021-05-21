@@ -8,7 +8,7 @@
 <body>
 	<div class="container">
 		<h1 class="label">Login</h1>
-		<form class="login_form" action="../admins/authenticate.php" method="post" name="form" onsubmit="return validated()">
+		<form class="login_form" action="../authenticate.php" method="post" name="form" onsubmit="return validated()">
 			<div class="font">Username</div>
 			<input id="username" type="text" name="username">
 			<div id="username_error">Please fill up your username</div>
