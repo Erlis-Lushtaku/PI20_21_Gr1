@@ -25,9 +25,9 @@ if (!isset($_SESSION['username'])) {
 <body>
 
 <div id="" style=" z-index: 6000;">
-    <div class="form-popup" id="myForm" style="border-radius: 15px;">
+    <div class="form-popup" id="myForm" style="border-radius: 15px; height: 700px">
     <?php require("../php_files/server.php"); ?>
-        <form enctype="multipart/form-data" action="registerproducts.php" class="form-container" method="post">
+        <form enctype="multipart/form-data" action="registerproducts.php" class="form-container" method="post" style="height: 690px">
         <?php  if (isset($_SESSION['username'])) : ?>
     	<h3 >Welcome <strong><?php echo $_SESSION['username']; ?></strong></h3>
         <?php endif ?>
@@ -37,7 +37,7 @@ if (!isset($_SESSION['username'])) {
             <input type="text" id="title" placeholder="Title" name="title" value="<?php if(isset($_SESSION['title'])){echo $_SESSION['title'];unset($_SESSION['title']);}?>" style="padding-left:15px;">
             <input type="text" id="price" placeholder="Price" name="price" value="<?php if(isset($_SESSION['price'])){echo $_SESSION['price'];unset($_SESSION['title']);}?>">
             <p>Upload an image of the product</p>
-            <input type="file"   name="image" />
+            <input type="file"   name="image"  style="display: block; margin-right: auto; margin-left: auto; padding:10px"/>
             <input type="text" id="producer" placeholder="Producer" name="producer" value="<?php if(isset($_SESSION['producer'])){echo $_SESSION['producer'];unset($_SESSION['title']);}?>">
             <select id="mySelect" name="categorySelect" >
                 <option value="">Select the category of the product...</option>
@@ -49,9 +49,13 @@ if (!isset($_SESSION['username'])) {
             <input type="checkbox">
             <p style="color:#201c1c">Save this information for next time</p>
             </br>
-            
-            <button type="submit" class="btn cancel" name="registerBtn">Register Product</button>
 
+            <h4>Or add multiple products from file:</h4>
+            <input type="file" name="fileToUpload" id="fileToUpload" style="display: block; margin-right: auto; margin-left: auto;">
+            <h5>Upload images of all products</h5>
+            <input type="file" name="images[]" multiple="multiple" style="display: block; margin-right: auto; margin-left: auto; padding:10px"/>
+
+            <button type="submit" class="btn cancel" name="registerBtn">Register Product</button>
             <button type="submit" class="btn" name="logout">Logout</button>
         </form>
     </div>

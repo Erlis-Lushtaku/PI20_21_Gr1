@@ -69,8 +69,8 @@
           type: "POST",
           url: "ajax_submitcontactus.php",
           data:{"name":name ,"email":email,"number":number,"company":company,"details":details,"categories-choice":categories,"person":person},
-          success: function () {
-            $('#persend').html("Message sent!");
+          success:function(){
+            $('#persend').html("Message sent if required fields filled!");
           }
         });
     });
@@ -97,8 +97,8 @@
             <option value="Other">
           </datalist>
           <input type="submit" id="persubmit" formtarget="_blank" value="Send" name="submit"
-            style="margin-bottom:20px;margin-left:210px;opacity:1;" onclick="return validation()">
-            <div style="margin-left:250px" id="persend"></div>
+            style="margin-bottom:20px;margin-left:210px;opacity:1;" onclick="return validation()">         
+            <div style="margin-left:170px" id="persend"></div>
         </form>       
       </div>
     </div>

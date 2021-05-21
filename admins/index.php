@@ -22,7 +22,7 @@ if (!isset($_SESSION['loggedin'])) {
     <div class="content">
         <h2>Admin's Page</h2>
         <button type="button" class="close" data-dismiss="alert">
-            <a href="addNewAdmin.php"><i class="fas fa-user"></i>Add New Admin</a>
+            <a href="./addNewAdmin.php"><i class="fas fa-user"></i>Add New Admin</a>
         </button>
 
         <div>
@@ -42,7 +42,7 @@ if (!isset($_SESSION['loggedin'])) {
                 <tbody>
                     <?php
                     require_once('db.php');
-                    $result = $conn->prepare("SELECT * FROM accounts ");
+                    $result = $conn->prepare("SELECT * FROM accounts ORDER BY id DESC ");
                     $result->execute();
                     for ($i = 0; $row = $result->fetch(); $i++) {
                         $id = $row['id'];
@@ -51,15 +51,15 @@ if (!isset($_SESSION['loggedin'])) {
                             <td style="text-align:center; word-break:break-all; width:300px;"> <?php echo $row['id']; ?></td>
                             <td style="text-align:center; margin-top:10px; word-break:break-all; width:450px; line-height:100px;">
                                 <?php if ($row['image_location'] != "") : ?>
-                                    <img src="../../images/admin/<?php echo $row['image_location']; ?>" width="40px" height="40px" style="margin-top:30px; border:1px solid #333333;">
+                                    <img src="./image/admin/<?php echo $row['image_location']; ?>" width="40px" height="40px" style="margin-top:30px; border:1px solid #333333;">
                                 <?php else : ?>
-                                    <img src="../../images/admin/empty.png" width="40px" height="40px" style="border:1px solid #333333;">
+                                    <img src=" ./image/admin/empty.png" width="40px" height="40px" style="border:1px solid #333333;">
                                 <?php endif; ?>
                             </td>
                             <td style="text-align:center; word-break:break-all; width:300px;"> <?php echo $row['username']; ?></td>
                             <td style="text-align:center; word-break:break-all; width:200px;"> <?php echo $row['email']; ?></td>
                             <td style="text-align:center; word-break:break-all; width:200px;"> <?php echo $row['password']; ?></td>
-                            <td style="text-align:center; word-break:break-all;"><a href=" delete.php?id=<?php echo $row["id"]; ?>"><i class="far fa-trash-alt"></i></a></td>
+							<td style="text-align:center; word-break:break-all;"><a href=" delete.php?id=<?php echo $row["id"]; ?>"><i class="far fa-trash-alt"></i></a></td>
                         </tr>
                     <?php } ?>
                 </tbody>

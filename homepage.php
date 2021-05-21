@@ -431,7 +431,12 @@
                 </div>
                 
             </div>
-            
+            <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v10.0" nonce="wZ24LOFf"></script>
+
+<div class="fb-like" data-href="https://www.facebook.com/BPA-101498705472786" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
+
+
             </div>
             <div style="background-color: rgb(92, 92, 92);color:rgb(189, 189, 189); height: 35px; padding-top: 5px;">&#169; Copyright 2021 Created By BPA All Rights Reserved</div>
            

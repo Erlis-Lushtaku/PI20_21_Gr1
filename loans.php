@@ -27,7 +27,7 @@
               <button class="open-button" onclick="openForm()">Find Lenders</button>
 
 <div class="form-popup" id="myForm">
-  <form action="/action_page.php" class="form-container">
+  <form method="post" method="myform"  class="form-container">
     <h1>Please complete the form below </h1>
     <label for="name"><b>Name</b></label>
     <input type="text" id="name" placeholder="Enter Name" name="name" required>
@@ -43,7 +43,7 @@
    
 
 
-    <button type="submit" class="btn" onclick="return validation()">Summbit</button>
+    <button type="submit" name="save" class="btn" onclick="return validation()">Submit</button>
     <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
   </form>
 </div>
@@ -160,4 +160,25 @@
             </footer>
      
   </body>
+
+  <?php
+include_once 'admins/database.php';
+// If the user is not logged in redirect to the login page...
+
+if (isset($_POST['save'])) {
+    $name = $_POST['name'];
+    $surname = $_POST['surname'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $subject = $_POST['subject'];
+    $sql = "INSERT INTO loansform (name,surname,email,phone,subject)
+                VALUES ('$name','$surname','$email','$phone','$subject')";
+    if (mysqli_query($con, $sql)) {
+        echo "Error: " . $sql . "
+            " . mysqli_error($con);
+    }
+    mysqli_close($con);
+    echo "<script>alert('Successfully Added!!!'); window.location='./loans.php'</script>";
+}
+?>
 </html>

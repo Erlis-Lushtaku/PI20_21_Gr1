@@ -1,5 +1,4 @@
 <?php
-
 // We need to use sessions, so you should always start sessions using the below code.
 session_start();
 // If the user is not logged in redirect to the login page...
@@ -29,8 +28,8 @@ if (!isset($_SESSION['loggedin'])) {
         <ul class="menu">
 
             <li> <a href="./home.php"><i class="fas fa-home"></i>Home</a></li>
-            <li> <a href="addNewAdmin.php"><i class="fas fa-user-circle"></i>Admins</a> </li>
-            <li> <a href="#"><i class="fas fa-image"></i>#</a> </li>
+            <li> <a href="./index.php"><i class="fas fa-user-circle"></i>Admins</a> </li>
+            <li> <a href="./promotions/index.php"><i class="fas fa-image"></i>Promotions</a> </li>
             <li> <a href="#"><i class="fas fa-newspaper"></i>#</a> </li>
             <li> <a href="#"><i class="fas fa-user-circle"></i>#</a> </li>
             <li> <a href="logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a> </li>
@@ -63,7 +62,7 @@ if (!isset($_SESSION['loggedin'])) {
 
 	if (isset($_POST['save'])) {
 
-		move_uploaded_file($_FILES["image_location"]["tmp_name"], "../../images/admin/" . $_FILES["image"]["name"]);
+		move_uploaded_file($_FILES["image_location"]["tmp_name"], "./image/admin/" . $_FILES["image"]["name"]);
 		$location = $_FILES["image"]["name"];
 
 		$username = $_POST['username'];
