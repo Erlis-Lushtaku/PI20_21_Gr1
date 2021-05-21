@@ -47,6 +47,13 @@
             $salt = strval(rand(100000,1000000));
             $saltedpassword = $password.$salt ;
             $query = "insert into users values('$username','$email_address', sha1('$saltedpassword'), '$salt');"; 
+        include('emailfunc.php');
+        $subject="Registration!";
+        $message="<hmtl><body><p>You are successfully registered!</p>
+        <p>Make sure to contact us for any isnecurities.</p>
+        </body></html>";
+        sendmail($email_address,$subject,$message,'BPAContactBusiness@gmail.com','bpa1234.');
+
             mysqli_query($DBconnection, $query);
             $path = 'http://127.0.0.1:8080/PI20_21_Gr1/login.php';
             header("Location: $path");                    // duhemi me caktu cka me bo nese regjistrohet me sukses userri 
