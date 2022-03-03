@@ -1,1 +1,2 @@
 # PI20_21_Gr1
+This project adds backend functionality to our existing front-end web application https://bpa-ks.netlify.app/. This website tends to help small businesses by allowing them to promote their products in our website. Art, culture and food products can be promoted in this site. Backend functionality is written in PHP, while the databse used to store information about the products and the web's users is MySQL. 
